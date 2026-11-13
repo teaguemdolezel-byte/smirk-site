@@ -12,6 +12,7 @@ Notes live in content/notes/*.md. Each file has a small header, then the text:
     quote: The one line worth remembering. Shown in blue handwriting mid-note.
     rule: The closing takeaway, one or two sentences. Shown under "One rule".
     draft: false                     (true = visible on the site, hidden from search engines)
+    topic: Operations                (optional. One word or two. Becomes a filter on /thinking)
     ---
 
     The setup. One to three paragraphs, blank line between each.
@@ -49,7 +50,7 @@ def load_notes():
         notes.append(dict(title=meta['title'], slug=meta['slug'], n=meta['number'], date=d,
                           shown=f'{MONTHS[d.month-1]} {d.year}', ex=meta['excerpt'],
                           draft=meta.get('draft', 'false').lower() in ('true', 'yes', '1'),
-                          quote=meta['quote'], rule=meta['rule'], parts=split_body(body, path)))
+                          quote=meta['quote'], rule=meta['rule'], topic=meta.get('topic', '').strip(), parts=split_body(body, path)))
     notes.sort(key=lambda n: (n['date'], n['n']), reverse=True)
     slugs = [n['slug'] for n in notes]
     if len(set(slugs)) != len(slugs): raise SystemExit('two notes share the same slug')
@@ -77,7 +78,7 @@ def body_html(blocks):
     return '\n      '.join(out)
 
 def row(n, prefix):
-    return (f'<a class="nr2" href="/thinking/{n["slug"]}"><span class="n">{esc(n["n"])}</span>'
+    return (f'<a class="nr2" data-topic="{esc(n["topic"])}" href="/thinking/{n["slug"]}"><span class="n">{esc(n["n"])}</span>'
             f'<span><span class="t">{esc(n["title"])}</span><span class="e">{esc(n["ex"])}</span></span>'
             f'<span class="d">{n["shown"]}</span><span class="rd2 hand">read it →</span></a>')
 
@@ -143,6 +144,14 @@ header.abs .in{height:68px;display:flex;align-items:center;justify-content:space
 @keyframes dr{to{stroke-dashoffset:0}}
 .top .sub{margin:clamp(28px,3.4vw,48px) 0 0;max-width:34em;font-size:clamp(17px,1.5vw,22px);line-height:1.45;color:rgba(242,240,235,.9)}
 main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
+.filt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 26px;padding:0 0 18px}
+.filt .lb{color:var(--muted)}
+.filt button{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:none;border:0;padding:6px 0;color:var(--ink);opacity:.55;cursor:pointer;background-image:linear-gradient(var(--cob),var(--cob));background-repeat:no-repeat;background-position:0 100%;background-size:0 1.5px;transition:opacity .3s,color .3s,background-size .4s cubic-bezier(.16,1,.3,1)}
+.filt button:hover{opacity:1}
+.filt button[aria-pressed="true"]{opacity:1;color:var(--cob);background-size:100% 1.5px}
+.filt button:focus-visible{outline:1.5px solid var(--cob);outline-offset:4px}
+.filt button sup{font-size:9px;margin-left:3px;opacity:.7}
+.nr2[hidden]{display:none}
 .nlist{border-top:1.5px solid var(--ink)}
 .nr2{position:relative;display:grid;grid-template-columns:120px 1fr auto;gap:30px;align-items:center;padding:26px 0;border-bottom:1px solid rgba(18,18,17,.15)}
 .nr2 .n{font-size:64px;line-height:.8;font-stretch:125%;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--ink);transition:color .4s,-webkit-text-stroke-color .4s}
@@ -231,8 +240,26 @@ def note_page(n, nxt):
 </html>
 '''
 
+FILTER_JS = """<script>
+(function(){ var bs=[].slice.call(document.querySelectorAll('.filt button')); if(!bs.length) return;
+  var rows=[].slice.call(document.querySelectorAll('.nlist .nr2'));
+  function set(t){ var ok=bs.some(function(b){return b.dataset.f===t;}); if(!ok) t='';
+    bs.forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.f===t)); });
+    rows.forEach(function(r){ r.hidden = !!t && r.dataset.topic!==t; }); }
+  bs.forEach(function(b){ b.addEventListener('click', function(){ var t=b.dataset.f; set(t);
+    try{ history.replaceState(null,'', t ? '#'+encodeURIComponent(t.toLowerCase()) : location.pathname); }catch(e){} }); });
+  var h=decodeURIComponent(location.hash.slice(1)).toLowerCase();
+  if(h){ var m=bs.filter(function(b){return b.dataset.f.toLowerCase()===h;})[0]; if(m) set(m.dataset.f); } })();
+</script>"""
+
 def index_page(notes):
     rows = '\n      '.join(row(n, '') for n in notes)
+    topics = sorted({n['topic'] for n in notes if n['topic']})
+    filt = ''
+    if len(topics) > 1:
+        btns = f'<button type="button" data-f="" aria-pressed="true">All<sup>{len(notes)}</sup></button>' + ''.join(
+            f'<button type="button" data-f="{esc(t)}" aria-pressed="false">{esc(t)}<sup>{sum(1 for n in notes if n["topic"] == t)}</sup></button>' for t in topics)
+        filt = f'<div class="filt" role="group" aria-label="Filter notes by topic"><span class="lb mono">Filter</span>{btns}</div>'
     return head('Thinking in Systems — notes from Smirk', 'Notes, mind dumps and half-built ideas from Smirk on systems, software and how businesses actually run.', '/thinking') + f'''
 <body>
 <header class="abs"><div class="in pad">
@@ -245,12 +272,14 @@ def index_page(notes):
   <p class="sub">What we’re learning while building software, systems and products. Written mostly for us.</p>
 </section>
 <main class="list pad">
+  {filt}
   <div class="nlist">
       {rows}
   </div>
 </main>
 {FOOT}
 {TOUCH_JS}
+{FILTER_JS}
 </body>
 </html>
 '''

@@ -5,6 +5,7 @@ number: 06
 date: 2026-11-13
 excerpt: Every ugly spreadsheet is a record of what the business actually needed. Read it before you replace it.
 draft: false
+topic: Operations
 quote: A messy spreadsheet is a list of every time the real tool fell short.
 rule: Before you replace the spreadsheet, read it. It’s the spec.
 ---

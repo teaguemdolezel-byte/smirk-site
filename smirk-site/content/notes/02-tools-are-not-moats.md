@@ -5,6 +5,7 @@ number: 02
 date: 2026-10-01
 excerpt: I spent months on a tool a model can now do in one message. That’s the lesson.
 draft: false
+topic: AI
 quote: If the value is in a single transformation, a model will eat it. If the value is in the system around it, it won’t.
 rule: Build the system around the tool, not the tool.
 ---

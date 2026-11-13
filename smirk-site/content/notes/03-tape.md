@@ -5,6 +5,7 @@ number: 03
 date: 2026-10-01
 excerpt: A spreadsheet, a group text and one person who remembers everything. That’s the real stack.
 draft: false
+topic: Operations
 quote: The most important system in most businesses is a person. That’s the risk.
 rule: Map the handoffs first. Then replace the tape one strip at a time.
 ---

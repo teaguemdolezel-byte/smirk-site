@@ -5,6 +5,7 @@ number: 05
 date: 2026-11-01
 excerpt: Every side project I never finished started the same way: I had an idea. The things that worked started somewhere else.
 draft: false
+topic: Product
 quote: An idea asks, "wouldn’t it be cool if?" A system asks, "where does the work get stuck?"
 rule: Build for one real workflow first. Generalize only after it’s boring, reliable and used.
 ---

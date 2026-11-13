@@ -5,6 +5,7 @@ number: 04
 date: 2026-11-01
 excerpt: Nobody wants software. They want the thing done.
 draft: false
+topic: Product
 quote: A tool asks the customer to change. A service asks them to approve.
 rule: Before you build, ask: do they want to use this, or do they want it handled?
 ---

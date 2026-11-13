@@ -26,6 +26,7 @@ Static site for smirk.io. No framework: `build.py` assembles everything into `di
    quote: The one line worth remembering (blue handwriting, mid-note).
    rule: The closing takeaway, shown under "One rule".
    draft: false               (true keeps it on the site but hidden from search engines)
+   topic: Operations          (optional; becomes a filter on the read-all page)
    ---
    ```
 

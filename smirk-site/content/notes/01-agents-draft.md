@@ -5,6 +5,7 @@ number: 01
 date: 2026-09-01
 excerpt: The fastest way to lose trust in automation is to let it talk to a customer unsupervised.
 draft: false
+topic: AI
 quote: An agent that’s right 95% of the time is a great assistant and a terrible employee.
 rule: Agents draft. People decide.
 ---
