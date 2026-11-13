@@ -937,6 +937,29 @@ footer{background:var(--ink);color:var(--cream);position:relative;overflow:hidde
 .studio .room .room-say,.studio .room .room-e span,.studio .room .room-c i{color:#CDD5FF}
 .studio .room .room-c path{stroke:#CDD5FF}
 .studio .room ::selection,.studio .room::selection{background:var(--ink);color:var(--cream)}
+
+/* hero v3: centred, like the wallpaper */
+.hero{background-color:var(--cob);background-image:radial-gradient(55% 80% at 82% 16%,rgba(142,160,255,.34),rgba(142,160,255,0)),linear-gradient(rgba(242,240,235,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,235,.07) 1px,transparent 1px);background-size:auto,32px 32px,32px 32px;padding-top:clamp(190px,26svh,250px);align-items:center}
+.hq{position:absolute;z-index:1;pointer-events:none;aspect-ratio:1}
+.hq.q1{right:8%;top:-7%;width:max(150px,17vw);transform:rotate(7deg);background:rgba(242,240,235,.07)}
+.hq.q2{right:-5%;top:48%;width:max(150px,18vw);transform:rotate(-5deg);background:rgba(18,18,17,.12)}
+.hq.q3{left:-6%;bottom:-12%;width:max(170px,20vw);transform:rotate(6deg);background:rgba(18,18,17,.10)}
+.hero h1.hh{position:relative;width:fit-content;max-width:100%;margin:auto auto 0;padding-top:0;text-align:center;white-space:nowrap;font-size:clamp(44px,min(7.8vw,15svh),170px);line-height:.95;letter-spacing:-.045em}
+.hero h1.hh .dim{display:block}
+.hero .circ path{stroke:#CDD5FF}
+.ht .circ{left:-9%;top:-6%;width:118%;height:124%}
+.hero h1.hh .hnote{position:absolute;right:-3%;bottom:calc(100% + clamp(12px,2vw,40px));margin:0;align-self:auto;text-align:left;white-space:nowrap;letter-spacing:0;font-size:clamp(24px,2.9vw,58px);line-height:.95;transform:rotate(-5deg);transform-origin:right bottom;color:#CDD5FF}
+.harr{display:none}
+.hero .hlead{position:relative;z-index:2;max-width:640px;margin:clamp(26px,4svh,44px) auto 0;text-align:center;font-size:clamp(16px,1.25vw,19px);line-height:1.5;opacity:.92}
+.hero .foot{margin-top:auto;padding-top:34px;width:100%;justify-content:space-between}
+.hero .foot .mono{opacity:.75}
+@media (max-width:700px){
+  .hero{align-items:flex-start;padding-top:96px}
+  .hero h1.hh{margin:auto 0 0;text-align:left;font-size:clamp(40px,15vw,96px);line-height:.94}
+  .hero h1.hh .hnote{position:static;display:block;margin:clamp(22px,4svh,40px) 0 0 4px;font-size:clamp(26px,7.4vw,34px);transform-origin:left center}
+  .hero .hlead{text-align:left;margin-left:0;margin-right:0}
+  .hq.q1{right:-12%;top:8%}.hq.q2{display:none}.hq.q3{left:-18%;bottom:-8%}
+}
 </style>
 </head>
 <body>
@@ -950,12 +973,11 @@ footer{background:var(--ink);color:var(--cream);position:relative;overflow:hidde
 
 <main id="top">
   <section class="hero pad" aria-label="Introduction">
-    <div class="hbg" aria-hidden="true"><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="u"></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class=""></i><i class="l"></i><i class=""></i><i class="l"></i><i class="l"></i><i class="l"></i><i class="l"></i><i class="l"></i><i class=""></i><i class=""></i></div>
-    <h1 class="hh">We build<br class="mb"> the <span class="ht">systems<svg class="circ dr" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M200 8 C80 2 10 26 10 62 C10 100 110 116 220 112 C330 108 396 86 390 52 C384 20 300 4 190 12"/></svg></span> <span class="dim">businesses<br class="mb"> grow on.</span></h1>
+    <i class="hq q1" aria-hidden="true"></i><i class="hq q2" aria-hidden="true"></i><i class="hq q3" aria-hidden="true"></i>
+    <h1 class="hh">We build<br class="mb"> the <span class="ht">systems<svg class="circ dr" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M200 8 C80 2 10 26 10 62 C10 100 110 116 220 112 C330 108 396 86 390 52 C384 20 300 4 190 12"/></svg></span> <span class="dim">businesses<br class="mb"> grow on.</span><span class="hnote hand" id="hnote">the part nobody sees<br>until it breaks.</span></h1>
     <svg class="harr" id="harr" aria-hidden="true"></svg>
-    <span class="hnote hand" id="hnote">the part nobody sees<br>until it breaks.</span>
+    <p class="hlead">We're an independent studio in Austin, Texas. We design and build software, systems and products — some for the businesses we work with, some of our own. Systems thinking sits underneath all of it.</p>
     <div class="foot">
-      <p>We're an independent studio in Austin, Texas. We design and build software, systems and products — some for the businesses we work with, some of our own. Systems thinking sits underneath all of it.</p>
       <span class="mono">Austin, Texas · Est. 2023</span>
     </div>
   </section>
