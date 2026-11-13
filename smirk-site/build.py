@@ -123,6 +123,8 @@ footer .meta span+span{margin-left:14px;padding-left:14px;border-left:1px solid 
 .rp{position:absolute;left:0;bottom:0;height:3px;background:var(--cream);width:0}
 .art{max-width:720px;margin:0 auto;padding:clamp(56px,7vw,90px) 24px clamp(80px,9vw,130px)}
 .art .ah{padding-bottom:32px;margin-bottom:38px;border-bottom:1.5px solid var(--ink)}
+body.np{position:relative}
+body.np::before{content:"";position:absolute;z-index:-1;left:0;right:0;top:0;height:min(100vh,860px);background-image:linear-gradient(rgba(18,18,17,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(18,18,17,.05) 1px,transparent 1px);background-size:32px 32px;-webkit-mask-image:linear-gradient(#000 35%,transparent);mask-image:linear-gradient(#000 35%,transparent);pointer-events:none}
 .art .ah{position:relative;isolation:isolate}
 .art .ah .bgn{position:absolute;z-index:-1;right:-6%;bottom:8px;font-size:clamp(150px,22vw,250px);line-height:.74;font-stretch:125%;font-weight:800;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1.5px rgba(18,18,17,.1);pointer-events:none;user-select:none}
 @media (max-width:760px){.art .ah .bgn{right:-2%;-webkit-text-stroke-width:1.2px}}
@@ -266,7 +268,7 @@ def note_page(n, nxt):
             separators=(',', ':')) + '</script>\n'
     extra = f'<meta property="og:type" content="article">\n<meta property="article:published_time" content="{n["date"].isoformat()}">\n{ld}'
     return head(f'{n["title"]} — Thinking in Systems — Smirk', n['ex'], f'/thinking/{n["slug"]}', noindex=n['draft'], extra=extra) + f'''
-<body>
+<body class="np">
 <div class="rbar blue"><div class="in pad">
   <span class="bkw"><a class="back hand" id="bk" href="/thinking">← Thinking in Systems</a><a class="ra hand" id="ra" href="/thinking" hidden>read all</a></span>
   <script>(function(){{ var k='smirk_from',f='';
