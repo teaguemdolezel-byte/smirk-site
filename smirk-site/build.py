@@ -118,6 +118,9 @@ footer .meta span+span{margin-left:14px;padding-left:14px;border-left:1px solid 
 .rp{position:absolute;left:0;bottom:0;height:3px;background:var(--cream);width:0}
 .art{max-width:720px;margin:0 auto;padding:clamp(56px,7vw,90px) 24px clamp(80px,9vw,130px)}
 .art .ah{padding-bottom:32px;margin-bottom:38px;border-bottom:1.5px solid var(--ink)}
+.art .ah{position:relative;isolation:isolate}
+.art .ah .bgn{position:absolute;z-index:-1;right:-6%;bottom:8px;font-size:clamp(150px,22vw,250px);line-height:.74;font-stretch:125%;font-weight:800;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1.5px rgba(18,18,17,.1);pointer-events:none;user-select:none}
+@media (max-width:760px){.art .ah .bgn{right:-2%;-webkit-text-stroke-width:1.2px}}
 .art .ah .mono{color:var(--muted)}
 .art h1{font-weight:500;font-size:clamp(32px,4.4vw,58px);line-height:1;letter-spacing:-.04em;margin:18px 0 0}
 .art .ab p{font-size:clamp(18px,1.5vw,20px);line-height:1.65;color:#22211E;margin:0 0 24px}
@@ -218,12 +221,19 @@ def note_page(n, nxt):
     return head(f'{n["title"]} — Thinking in Systems — Smirk', n['ex'], f'/thinking/{n["slug"]}', noindex=n['draft'], extra=extra) + f'''
 <body>
 <div class="rbar blue"><div class="in pad">
-  <a class="back hand" href="/thinking">← Thinking in Systems</a>
+  <a class="back hand" id="bk" href="/thinking">← Thinking in Systems</a>
+  <script>(function(){{ var k='smirk_from',f='';
+    try{{ var r=document.referrer?new URL(document.referrer):null;
+      if(r&&r.origin===location.origin){{ var p=r.pathname.replace(/[/]+$/,'');
+        if(p===''||p==='/index.html') sessionStorage.setItem(k,'home'); else if(p==='/thinking') sessionStorage.setItem(k,'thinking'); }}
+      else sessionStorage.removeItem(k);
+      f=sessionStorage.getItem(k)||''; }}catch(e){{}}
+    if(f==='home'){{ var a=document.getElementById('bk'); a.href='/#notes'; a.textContent='\u2190 back to Smirk'; }} }})();</script>
   <a class="brand" href="/" aria-label="Smirk home">{MARK}<span class="wm">smirk</span></a>
 </div><span class="rp" id="rp"></span></div>
 <main>
   <article class="art">
-    <header class="ah"><span class="mono">Thinking in Systems · No. {esc(n["n"])} · {n["shown"]}</span><h1>{esc(n["title"])}</h1></header>
+    <header class="ah"><span class="bgn" aria-hidden="true">{esc(n["n"])}</span><span class="mono">Thinking in Systems · No. {esc(n["n"])} · {n["shown"]}</span><h1>{esc(n["title"])}</h1></header>
     <div class="ab">
       {note_body(n)}
       <span class="sig hand">— T.</span>
