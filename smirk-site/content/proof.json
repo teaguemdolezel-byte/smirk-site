@@ -9,35 +9,40 @@
           "status": "Live",
           "problem": "The website brought in 10 inquiries in nine months. Nearly every deal came from someone the founder already knew.",
           "built": "A system, not a website. Pages that answer what buyers actually search for, a three-field quote form, and automations that carry every inquiry from form to team to pipeline, tracked at each step so we know what’s working.",
-          "outcome": "30+ qualified inquiries a month, 42 in the best one. The system now drives roughly 30% of that line of business."
+          "outcome": "30+ qualified inquiries a month, 42 in the best one. The system now drives roughly 30% of that line of business.",
+          "note": "it was 10 in nine months."
         },
         {
           "title": "The sales memory",
           "status": "Live",
           "problem": "The pipeline lived in one inbox and one person’s head. Follow-ups happened when someone remembered.",
           "built": "We read four years of email, 40,000+ messages, into structured deal records. Then a CRM on top that syncs the team’s mailboxes hourly and opens on one question: who needs you today. When a prospect says \"check back in June,\" it wakes the deal in June.",
-          "outcome": "177 of 187 deals got a status, the facts and a next step on day one. It surfaced prospects who had asked for a call back months earlier, and two live deals that were in nobody’s pipeline."
+          "outcome": "177 of 187 deals got a status, the facts and a next step on day one. It surfaced prospects who had asked for a call back months earlier, and two live deals that were in nobody’s pipeline.",
+          "note": "it remembers June."
         },
         {
           "title": "The company agent",
           "status": "Built",
           "problem": "The answers to everyday questions were spread across apps, inboxes and the few people who happened to know. So everyone asked those people.",
           "built": "An AI agent trained on the company’s own data. Anyone in the organization can text it a question and get the answer, from a verified number, in a thread they already use.",
-          "outcome": "Questions get answered by text instead of by interrupting someone."
+          "outcome": "Questions get answered by text instead of by interrupting someone.",
+          "note": "just text it."
         },
         {
           "title": "Private gift stores",
           "status": "Live",
           "problem": "Each client event needed its own private store where guests choose a gift and never see a price. Every one was built by hand, with the gift rules written into code.",
           "built": "Tiered private collections inside the company’s existing online store, run by settings instead of code: which event, how many gifts per guest, the client’s branding.",
-          "outcome": "A new event store is a copy and two settings. It stopped being a development job."
+          "outcome": "A new event store is a copy and two settings. It stopped being a development job.",
+          "note": "no prices. on purpose."
         },
         {
           "title": "Onboarding to contract",
           "status": "Rolling out",
           "problem": "Once a deal closed, the client record, contract and invoice were each built by hand. The same details got typed three times.",
           "built": "One onboarding form the client fills in. It creates the client record, matches it to the deal and generates the contract and invoice for review. Each client gets a private portal with documents, event details, artwork approvals and post-event reports.",
-          "outcome": "Rolling out now. Numbers when there are some."
+          "outcome": "Rolling out now. Numbers when there are some.",
+          "note": "typed once."
         }
       ]
     },
@@ -50,7 +55,8 @@
           "status": "In build",
           "problem": "Business-to-business deals stall in the gaps between quote, approval, signature, invoice and payment. Each step lives in a different tool.",
           "built": "One workflow from quote to paid: catalogs, buyer approvals, agreements and payments in one place.",
-          "outcome": "In build. No link until there’s something to click."
+          "outcome": "In build. No link until there’s something to click.",
+          "note": "soon."
         }
       ]
     }

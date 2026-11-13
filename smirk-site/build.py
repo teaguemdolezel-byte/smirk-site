@@ -152,7 +152,7 @@ header.abs .in{height:68px;display:flex;align-items:center;justify-content:space
 @keyframes dr{to{stroke-dashoffset:0}}
 .top .sub{margin:clamp(28px,3.4vw,48px) 0 0;max-width:34em;font-size:clamp(17px,1.5vw,22px);line-height:1.45;color:rgba(242,240,235,.9)}
 main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
-.pf{padding-top:clamp(36px,5vw,72px);padding-bottom:clamp(64px,7vw,110px)}
+.pf{padding-top:clamp(36px,5vw,72px);padding-bottom:clamp(56px,6vw,96px)}
 .pf .grp{margin-top:clamp(56px,7vw,96px)}
 .pf .grp:first-child{margin-top:0}
 .pf .gh{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 28px;padding-bottom:18px;border-bottom:1.5px solid var(--ink)}
@@ -165,6 +165,19 @@ main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
 .pi h3{margin:0;font-size:clamp(26px,3vw,42px);line-height:1;letter-spacing:-.03em;font-weight:600}
 .pi .st{color:var(--muted)}
 .pi .st.on{color:var(--cob)}
+.pi .hn{margin-left:auto;color:var(--cob);font-size:clamp(24px,2.2vw,30px);line-height:1;white-space:nowrap;transform:rotate(-3deg);transform-origin:right center}
+.pi:nth-of-type(even) .hn{transform:rotate(2deg)}
+.pi .st.on::before{content:"";display:inline-block;width:6px;height:6px;margin-right:7px;background:var(--cob);vertical-align:1px;animation:blink 2.4s steps(1) infinite}
+@keyframes blink{0%,70%{opacity:1}71%,100%{opacity:.25}}
+.pi .pso .oc p{font-size:clamp(17px,1.5vw,20px);line-height:1.4;letter-spacing:-.01em}
+.top h1 .u{position:relative;display:inline-block}
+.top h1 .u svg{position:absolute;left:-2%;bottom:-.12em;width:104%;height:.3em;overflow:visible;pointer-events:none}
+.top h1 .u path{fill:none;stroke:var(--peri);stroke-width:3.4;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:dr 1.2s .5s cubic-bezier(.5,0,.2,1) forwards}
+.pband{background:var(--cob);color:var(--cream);padding-top:clamp(56px,7vw,110px);padding-bottom:clamp(44px,5vw,76px);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:30px;background-image:linear-gradient(rgba(242,240,235,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,235,.07) 1px,transparent 1px);background-size:32px 32px}
+.pband .big{margin:0;font-weight:500;font-size:clamp(40px,7vw,112px);line-height:.92;letter-spacing:-.045em}
+.pband .big span{display:block;opacity:.55}
+.pband .fin{color:var(--peri);font-size:clamp(26px,2.6vw,38px);line-height:1;transform:rotate(-3deg);transform-origin:right bottom}
+@media (max-width:700px){.pband{flex-direction:column;align-items:flex-start}.pband .fin{align-self:flex-end}.pi .hn{margin-left:0;flex-basis:100%;transform-origin:left center;margin-top:4px}}
 .pi .pso{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);margin-top:26px}
 .pi .pso .mono{display:block;margin-bottom:10px;color:var(--muted)}
 .pi .pso p{margin:0;font-size:16px;line-height:1.5;color:var(--body)}
@@ -193,7 +206,7 @@ main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
 .nr2:hover .rd2,.nr2.hv .rd2{opacity:1}
 .nr2:hover .d,.nr2.hv .d{opacity:0}
 @media (max-width:760px){.nr2{grid-template-columns:70px 1fr;padding-bottom:44px}.nr2 .d{display:none}.nr2 .n{font-size:40px}.nr2 .rd2{top:auto;bottom:10px;right:2px;font-size:21px;transform:rotate(-3deg)}.nr2:hover .t,.nr2.hv .t{transform:translateX(8px)}}
-@media (prefers-reduced-motion:reduce){.top h1 .c path{animation:none;stroke-dashoffset:0}*{transition:none!important}}
+@media (prefers-reduced-motion:reduce){.top h1 .c path,.top h1 .u path{animation:none;stroke-dashoffset:0}.pi .st.on::before{animation:none}*{transition:none!important}}
 '''
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
          '<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Caveat:wght@500;700&family=Inter+Tight:wght@600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">')
@@ -329,7 +342,7 @@ def proof_page():
             i += 1
             live = ' on' if it['status'].lower() == 'live' else ''
             rows.append(f'''<article class="pi"><span class="n" aria-hidden="true">{i:02d}</span><div>
-        <div class="hd"><h3>{esc(it["title"])}</h3><span class="st mono{live}">{esc(it["status"])}</span></div>
+        <div class="hd"><h3>{esc(it["title"])}</h3><span class="st mono{live}">{esc(it["status"])}</span>{('<span class="hn hand">' + esc(it["note"]) + '</span>') if it.get("note") else ''}</div>
         <div class="pso"><div><span class="mono">Problem</span><p>{esc(it["problem"])}</p></div><div><span class="mono">What we built</span><p>{esc(it["built"])}</p></div><div class="oc"><span class="mono">Outcome</span><p>{esc(it["outcome"])}</p></div></div>
       </div></article>''')
         lead = f'<p>{esc(g["lead"])}</p>' if g.get('lead') else ''
@@ -342,12 +355,13 @@ def proof_page():
 </div></header>
 <section class="top pad blue">
   <span class="kick hand">show, don’t tell ↓</span>
-  <h1>Proof</h1>
+  <h1><span class="u">Proof<svg viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M6 16 C90 5 210 7 394 13 M48 31 C150 22 262 23 366 27"/></svg></span></h1>
   <p class="sub">Some of what we’ve built. No client names; the work is theirs to talk about. Just the problem, what we built, and what changed.</p>
 </section>
 <main class="pf pad">
     {chr(10).join(out)}
 </main>
+<section class="pband blue pad"><p class="big">No screenshots.<span>Their systems. Their business.</span></p><span class="fin hand">we’ll walk you through one, though.</span></section>
 {FOOT}
 {TOUCH_JS.replace(".nr2", ".pi")}
 </body>
