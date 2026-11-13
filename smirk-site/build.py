@@ -163,7 +163,7 @@ main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
 .pi:hover .n,.pi.hv .n{color:var(--cob);-webkit-text-stroke-color:var(--cob)}
 .pi .hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
 .pi h3{margin:0;font-size:clamp(26px,3vw,42px);line-height:1;letter-spacing:-.03em;font-weight:600}
-.pi .st{color:var(--muted)}
+.pi .st{color:var(--muted);order:-1;flex-basis:100%;margin-bottom:4px}
 .pi .st.on{color:var(--cob)}
 .pi .hn{margin-left:auto;color:var(--cob);font-size:clamp(24px,2.2vw,30px);line-height:1;white-space:nowrap;transform:rotate(-3deg);transform-origin:right center}
 .pi:nth-of-type(even) .hn{transform:rotate(2deg)}
@@ -182,17 +182,17 @@ main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
 .pi .pso .mono{display:block;margin-bottom:10px;color:var(--muted)}
 .pi .pso p{margin:0;font-size:16px;line-height:1.5;color:var(--body)}
 .pi{padding:0}
-.pi .n{margin-top:34px}
+.pi .n{margin-top:60px}
 .pi>div{padding:34px 0 38px;background:linear-gradient(90deg,transparent 33.333%,rgba(18,18,17,.04) 33.333%,rgba(18,18,17,.04) 66.666%,rgba(53,83,224,.07) 66.666%)}
 .pi .pso>div{padding:0 22px}
 .pi .pso>div:first-child{padding-left:0}
 .pi .hn{margin-right:22px}
-@media (max-width:900px){.pi>div{background:none;padding:28px 0 0}.pi .n{margin-top:28px}.pi .pso{margin:16px 0 0 -18px}.pi .pso>div,.pi .pso>div:first-child{padding:14px 18px 16px}.pi .pso>div:nth-child(2){background:rgba(18,18,17,.04)}.pi .pso .oc{background:rgba(53,83,224,.07)}.pi .hn{margin-right:0}}
+@media (max-width:900px){.pi>div{background:none;padding:28px 0 0}.pi .n{margin-top:52px}.pi .pso{margin:16px 0 0 -18px}.pi .pso>div,.pi .pso>div:first-child{padding:14px 18px 16px}.pi .pso>div:nth-child(2){background:rgba(18,18,17,.04)}.pi .pso .oc{background:rgba(53,83,224,.07)}.pi .hn{margin-right:0}}
 .pi .pso .oc .mono{color:var(--cob)}
 .pi .pso .oc p{color:var(--ink);font-weight:500}
 @media (max-width:900px){.pi .pso{grid-template-columns:1fr;gap:0}}
 @media (max-width:760px){.pi{grid-template-columns:70px 1fr;gap:16px}.pi .n{font-size:40px}}
-@media (max-width:520px){.pi{grid-template-columns:1fr;gap:14px}}
+@media (max-width:520px){.pi{grid-template-columns:1fr;gap:0}.pi .n{margin-top:28px}.pi>div{padding-top:16px}}
 .filt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 26px;padding:0 0 18px}
 .filt .lb{color:var(--muted)}
 .filt button{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:none;border:0;padding:6px 0;color:var(--ink);opacity:.55;cursor:pointer;background-image:linear-gradient(var(--cob),var(--cob));background-repeat:no-repeat;background-position:0 100%;background-size:0 1.5px;transition:opacity .3s,color .3s,background-size .4s cubic-bezier(.16,1,.3,1)}
