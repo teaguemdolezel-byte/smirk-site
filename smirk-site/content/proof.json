@@ -45,6 +45,14 @@
           "note": "their data anyway."
         },
         {
+          "title": "The crew board",
+          "status": "Live",
+          "problem": "Staffing a job was a group text. Whoever answered first got it, nobody could see what was open, and bonuses were worked out by hand afterwards.",
+          "built": "A board the crew opens on their phones. Open spots drop each night with a notification, staff request the ones they want, and an admin approves. Pay and bonuses calculate themselves, and each person sees their own.",
+          "outcome": "The crew staff themselves. Nobody asks what’s open or what they’re owed.",
+          "note": "no more group text."
+        },
+        {
           "title": "Onboarding to contract",
           "status": "Rolling out",
           "problem": "Once a deal closed, the client record, contract and invoice were each built by hand. The same details got typed three times.",
