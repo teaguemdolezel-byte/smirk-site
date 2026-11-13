@@ -37,6 +37,14 @@
           "note": "one button."
         },
         {
+          "title": "The live dashboard",
+          "status": "Live",
+          "problem": "Their software held all the data and wanted an insane price for analytics that still didn’t answer the questions they actually had.",
+          "built": "We pulled the raw data out and built a live dashboard on top of it. It shows exactly what they wanted to see, and they can track it as it changes.",
+          "outcome": "The numbers they asked for, live, without paying for the upgrade.",
+          "note": "their data anyway."
+        },
+        {
           "title": "Onboarding to contract",
           "status": "Rolling out",
           "problem": "Once a deal closed, the client record, contract and invoice were each built by hand. The same details got typed three times.",
