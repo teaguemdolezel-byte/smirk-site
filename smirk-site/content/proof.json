@@ -5,20 +5,20 @@
       "lead": "",
       "items": [
         {
-          "title": "The lead system",
-          "status": "Live",
-          "problem": "The website brought in 10 inquiries in nine months. Nearly every deal came from someone the founder already knew.",
-          "built": "A system, not a website. Pages that answer what buyers actually search for, a three-field quote form, and automations that carry every inquiry from form to team to pipeline, tracked at each step so we know what’s working.",
-          "outcome": "30+ qualified inquiries a month, 42 in the best one. The system now drives roughly 30% of that line of business.",
-          "note": "it was 10 in nine months."
-        },
-        {
           "title": "The sales memory",
           "status": "Live",
           "problem": "The pipeline lived in one inbox and one person’s head. Follow-ups happened when someone remembered.",
           "built": "We read four years of email, 40,000+ messages, into structured deal records. Then a CRM on top that syncs the team’s mailboxes hourly and opens on one question: who needs you today. When a prospect says \"check back in June,\" it wakes the deal in June.",
           "outcome": "177 of 187 deals got a status, the facts and a next step on day one. It surfaced prospects who had asked for a call back months earlier, and two live deals that were in nobody’s pipeline.",
           "note": "it remembers June."
+        },
+        {
+          "title": "The lead system",
+          "status": "Live",
+          "problem": "The website brought in 10 inquiries in nine months. Nearly every deal came from someone the founder already knew, or from referrals.",
+          "built": "A system, not a website. Pages that answer what buyers actually search for, a three-field quote form, and automations that carry every inquiry from form to team to pipeline, tracked at each step so we know what’s working.",
+          "outcome": "30+ qualified inquiries a month, 42 in the best one. The system now drives roughly 30% of that line of business.",
+          "note": "it was 10 in nine months."
         },
         {
           "title": "The company agent",
