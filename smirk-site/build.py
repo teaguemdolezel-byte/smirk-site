@@ -162,7 +162,8 @@ main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
 .pi .n{font-size:64px;line-height:.8;font-stretch:125%;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--ink);transition:color .4s,-webkit-text-stroke-color .4s;padding-top:4px}
 .pi:hover .n,.pi.hv .n{color:var(--cob);-webkit-text-stroke-color:var(--cob)}
 .pi .hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
-.pi h3{margin:0;font-size:clamp(26px,3vw,42px);line-height:1;letter-spacing:-.03em;font-weight:600}
+.pi h3{margin:0;font-size:clamp(24px,2.45vw,35px);line-height:1.02;letter-spacing:-.03em;font-weight:600;max-width:calc(33.333% - 22px)}
+@media (max-width:900px){.pi h3{max-width:none;font-size:clamp(24px,5vw,34px)}}
 .pi .st{color:var(--muted);order:-1;flex-basis:100%;margin-bottom:4px}
 .pi .st.on{color:var(--cob)}
 .pi .hn{margin-left:auto;color:var(--cob);font-size:clamp(24px,2.2vw,30px);line-height:1;white-space:nowrap;transform:rotate(-3deg);transform-origin:right center}
