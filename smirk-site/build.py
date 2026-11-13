@@ -343,7 +343,7 @@ def proof_page():
 <section class="top pad blue">
   <span class="kick hand">show, don’t tell ↓</span>
   <h1>Proof</h1>
-  <p class="sub">Everything we’ve built or are building. No client names; the work is theirs to talk about. Just the problem, what we built, and what changed.</p>
+  <p class="sub">Some of what we’ve built. No client names; the work is theirs to talk about. Just the problem, what we built, and what changed.</p>
 </section>
 <main class="pf pad">
     {chr(10).join(out)}
