@@ -1,0 +1,99 @@
+{
+  "groups": [
+    {
+      "label": "One company, six systems",
+      "lead": "A corporate gifting company that runs on-site events. We’ve been building inside it one system at a time.",
+      "items": [
+        {
+          "title": "The inbound engine",
+          "status": "Live",
+          "problem": "The website brought in 10 inquiries in nine months. Nearly every deal came from someone the founder already knew.",
+          "built": "Service pages rebuilt around how buyers actually search. A three-field quote form. Content and structured data aimed at search engines and AI answers. Automations that send every lead to the team and into the pipeline the moment it lands.",
+          "outcome": "30+ qualified inquiries a month, 42 in the best one. The website now drives roughly 40% of that line of business."
+        },
+        {
+          "title": "The event operations hub",
+          "status": "Live",
+          "problem": "Every event ran on spreadsheets, a group text and whoever remembered. Staffing was a round of messages. Crew bonuses were worked out by hand.",
+          "built": "One internal app from signed deal to event day: event records, per-event inventory, packing and travel checklists, shipment tracking, and crew scheduling where open spots drop each night and staff request them.",
+          "outcome": "Events run through it. Crew pick up open spots themselves and see their own bonuses, so nobody has to ask."
+        },
+        {
+          "title": "The sales memory",
+          "status": "Live",
+          "problem": "The pipeline lived in one inbox and one person’s head. Follow-ups happened when someone remembered.",
+          "built": "We read four years of email, 40,000+ messages, into structured deal records. Then a CRM on top that syncs the team’s mailboxes hourly and opens on one question: who needs you today. When a prospect says \"check back in June,\" it wakes the deal in June.",
+          "outcome": "177 of 187 deals got a status, the facts and a next step on day one. It surfaced prospects who had asked for a call back months earlier, and two live deals that were in nobody’s pipeline."
+        },
+        {
+          "title": "Event close-out",
+          "status": "Live",
+          "problem": "After each event someone compared gifts contracted against gifts given, created redemption codes by hand across two tools, built a report and wrote the client email. Codes could overlap.",
+          "built": "A close-out page that does the count, generates exactly the codes owed directly in the store, builds the redemption report and drafts the email.",
+          "outcome": "A manual job across several tools became a review and a send. Only codes the store confirms are saved, so none get issued twice."
+        },
+        {
+          "title": "Private gift stores",
+          "status": "Live",
+          "problem": "Each client event needed its own private store where guests choose a gift and never see a price. Every one was built by hand, with the gift rules written into code.",
+          "built": "Tiered private collections inside the company’s existing online store, run by settings instead of code: which event, how many gifts per guest, the client’s branding.",
+          "outcome": "A new event store is a copy and two settings. It stopped being a development job."
+        },
+        {
+          "title": "Onboarding to contract",
+          "status": "Rolling out",
+          "problem": "Once a deal closed, the client record, contract and invoice were each built by hand. The same details got typed three times.",
+          "built": "One onboarding form the client fills in. It creates the client record, matches it to the deal and generates the contract and invoice for review. Each client gets a private portal with documents, event details, artwork approvals and post-event reports.",
+          "outcome": "Rolling out now. Numbers when there are some."
+        }
+      ]
+    },
+    {
+      "label": "In progress",
+      "lead": "",
+      "items": [
+        {
+          "title": "A text line for the crew",
+          "status": "In build",
+          "problem": "Event staff ask the same questions all day. Where is it, when do we load in, who’s leading.",
+          "built": "A text line connected to the operations hub. Verified team numbers send a question and get the answer from live event data.",
+          "outcome": "In build."
+        },
+        {
+          "title": "A hospital keepsake program",
+          "status": "In design",
+          "problem": "A company that makes milestone keepsakes for families in neonatal care is changing how hospitals buy from it. Nothing existed to sell the new program, run it, or support parents through it.",
+          "built": "The site hospitals buy from, a portal for hospital staff, and an app where parents track milestones during the stay and redeem a graduation box at discharge.",
+          "outcome": "In design."
+        }
+      ]
+    },
+    {
+      "label": "Our own",
+      "lead": "",
+      "items": [
+        {
+          "title": "Folio",
+          "status": "In build",
+          "problem": "Business-to-business deals stall in the gaps between quote, approval, signature, invoice and payment. Each step lives in a different tool.",
+          "built": "One workflow from quote to paid: catalogs, buyer approvals, agreements and payments in one place.",
+          "outcome": "In build. No link until there’s something to click."
+        },
+        {
+          "title": "Hostavo",
+          "status": "Live",
+          "problem": "Sending creative work for sign-off meant attachments, long threads and \"which version is this?\"",
+          "built": "A small file-sharing and short-link app for sending work and collecting approval.",
+          "outcome": "Live."
+        },
+        {
+          "title": "Sliceify",
+          "status": "Built",
+          "problem": "Turning an email design into working HTML and loading it into an email platform is slow, fiddly work.",
+          "built": "A tool that slices the design, writes the HTML and deploys it.",
+          "outcome": "Built. Not released."
+        }
+      ]
+    }
+  ]
+}

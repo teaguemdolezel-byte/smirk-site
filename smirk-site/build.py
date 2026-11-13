@@ -152,6 +152,27 @@ header.abs .in{height:68px;display:flex;align-items:center;justify-content:space
 @keyframes dr{to{stroke-dashoffset:0}}
 .top .sub{margin:clamp(28px,3.4vw,48px) 0 0;max-width:34em;font-size:clamp(17px,1.5vw,22px);line-height:1.45;color:rgba(242,240,235,.9)}
 main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
+.pf{padding-top:clamp(36px,5vw,72px);padding-bottom:clamp(64px,7vw,110px)}
+.pf .grp{margin-top:clamp(56px,7vw,96px)}
+.pf .grp:first-child{margin-top:0}
+.pf .gh{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 28px;padding-bottom:18px;border-bottom:1.5px solid var(--ink)}
+.pf .gh h2{margin:0;font-weight:500;font-size:clamp(26px,3vw,40px);letter-spacing:-.035em;line-height:1}
+.pf .gh p{margin:0;max-width:44em;font-size:16px;line-height:1.45;color:var(--muted)}
+.pi{display:grid;grid-template-columns:120px 1fr;gap:30px;padding:34px 0 38px;border-bottom:1px solid rgba(18,18,17,.15)}
+.pi .n{font-size:64px;line-height:.8;font-stretch:125%;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--ink);transition:color .4s,-webkit-text-stroke-color .4s;padding-top:4px}
+.pi:hover .n,.pi.hv .n{color:var(--cob);-webkit-text-stroke-color:var(--cob)}
+.pi .hd{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+.pi h3{margin:0;font-size:clamp(26px,3vw,42px);line-height:1;letter-spacing:-.03em;font-weight:600}
+.pi .st{color:var(--muted)}
+.pi .st.on{color:var(--cob)}
+.pi .pso{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);margin-top:26px}
+.pi .pso .mono{display:block;margin-bottom:10px;color:var(--muted)}
+.pi .pso p{margin:0;font-size:16px;line-height:1.5;color:var(--body)}
+.pi .pso .oc .mono{color:var(--cob)}
+.pi .pso .oc p{color:var(--ink);font-weight:500}
+@media (max-width:900px){.pi .pso{grid-template-columns:1fr;gap:20px}}
+@media (max-width:760px){.pi{grid-template-columns:70px 1fr;gap:16px;padding:28px 0 32px}.pi .n{font-size:40px}}
+@media (max-width:520px){.pi{grid-template-columns:1fr;gap:14px}}
 .filt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 26px;padding:0 0 18px}
 .filt .lb{color:var(--muted)}
 .filt button{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:none;border:0;padding:6px 0;color:var(--ink);opacity:.55;cursor:pointer;background-image:linear-gradient(var(--cob),var(--cob));background-repeat:no-repeat;background-position:0 100%;background-size:0 1.5px;transition:opacity .3s,color .3s,background-size .4s cubic-bezier(.16,1,.3,1)}
@@ -299,6 +320,40 @@ def index_page(notes):
 </html>
 '''
 
+def proof_page():
+    data = json.load(open(os.path.join(ROOT, 'content', 'proof.json'), encoding='utf-8'))
+    i, out = 0, []
+    for g in data['groups']:
+        rows = []
+        for it in g['items']:
+            i += 1
+            live = ' on' if it['status'].lower() == 'live' else ''
+            rows.append(f'''<article class="pi"><span class="n" aria-hidden="true">{i:02d}</span><div>
+        <div class="hd"><h3>{esc(it["title"])}</h3><span class="st mono{live}">{esc(it["status"])}</span></div>
+        <div class="pso"><div><span class="mono">Problem</span><p>{esc(it["problem"])}</p></div><div><span class="mono">What we built</span><p>{esc(it["built"])}</p></div><div class="oc"><span class="mono">Outcome</span><p>{esc(it["outcome"])}</p></div></div>
+      </div></article>''')
+        lead = f'<p>{esc(g["lead"])}</p>' if g.get('lead') else ''
+        out.append(f'<section class="grp"><div class="gh"><h2>{esc(g["label"])}</h2>{lead}</div>\n      ' + '\n      '.join(rows) + '\n    </section>')
+    return head('Proof — what Smirk has built', 'The systems, tools and products Smirk has built or is building. No client names: the problem, what we built, and what changed.', '/proof') + f'''
+<body>
+<header class="abs"><div class="in pad">
+  <a class="brand" href="/" aria-label="Smirk home">{MARK}<span class="wm">smirk</span></a>
+  <a class="back hand" href="/">← back to Smirk</a>
+</div></header>
+<section class="top pad blue">
+  <span class="kick hand">show, don’t tell ↓</span>
+  <h1>Proof</h1>
+  <p class="sub">Everything we’ve built or are building. No client names; the work is theirs to talk about. Just the problem, what we built, and what changed.</p>
+</section>
+<main class="pf pad">
+    {chr(10).join(out)}
+</main>
+{FOOT}
+{TOUCH_JS.replace(".nr2", ".pi")}
+</body>
+</html>
+'''
+
 def not_found_page():
     css = """
 .nf{min-height:100svh;display:flex;flex-direction:column;background:var(--cob);color:var(--cream);background-image:radial-gradient(70% 60% at 76% 20%,rgba(142,160,255,.36),rgba(142,160,255,0)),linear-gradient(rgba(242,240,235,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,235,.07) 1px,transparent 1px);background-size:auto,32px 32px,32px 32px}
@@ -343,8 +398,9 @@ def main():
     for i, n in enumerate(notes):
         open(os.path.join(DIST, 'thinking', n['slug'] + '.html'), 'w', encoding='utf-8').write(note_page(n, notes[(i + 1) % len(notes)]))
     open(os.path.join(DIST, '404.html'), 'w', encoding='utf-8').write(not_found_page())
+    open(os.path.join(DIST, 'proof.html'), 'w', encoding='utf-8').write(proof_page())
     today = datetime.date.today().isoformat()
-    urls = [('/', today), ('/work-together', today), ('/thinking', today)] + [(f'/thinking/{n["slug"]}', n['date'].isoformat()) for n in notes if not n['draft']]
+    urls = [('/', today), ('/proof', today), ('/work-together', today), ('/thinking', today)] + [(f'/thinking/{n["slug"]}', n['date'].isoformat()) for n in notes if not n['draft']]
     open(os.path.join(DIST, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{BASE}{u}</loc><lastmod>{d}</lastmod></url>\n' for u, d in urls) + '</urlset>\n')
     print(f'built {len(notes)} notes ({sum(n["draft"] for n in notes)} drafts hidden from search) -> dist/')
