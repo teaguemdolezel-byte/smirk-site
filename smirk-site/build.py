@@ -114,6 +114,11 @@ footer .meta span+span{margin-left:14px;padding-left:14px;border-left:1px solid 
 /* note page */
 .rbar{position:sticky;top:0;background:var(--cob);color:var(--cream);z-index:5}
 .rbar .in{height:60px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.rbar .bkw{display:flex;align-items:baseline;gap:22px;min-width:0}
+.rbar .ra{font-size:20px;line-height:1;opacity:.75;transform:rotate(-1.5deg);display:inline-block;white-space:nowrap;border-bottom:1px solid rgba(242,240,235,.45);padding-bottom:1px}
+.rbar .ra:hover{opacity:1;color:var(--peri);border-color:var(--peri)}
+.rbar .ra[hidden]{display:none}
+@media (max-width:520px){.rbar .bkw{gap:14px}.rbar .ra{font-size:18px}}
 .rbar .brand svg{width:34px}.rbar .brand .wm{font-size:20px}
 .rp{position:absolute;left:0;bottom:0;height:3px;background:var(--cream);width:0}
 .art{max-width:720px;margin:0 auto;padding:clamp(56px,7vw,90px) 24px clamp(80px,9vw,130px)}
@@ -221,14 +226,14 @@ def note_page(n, nxt):
     return head(f'{n["title"]} — Thinking in Systems — Smirk', n['ex'], f'/thinking/{n["slug"]}', noindex=n['draft'], extra=extra) + f'''
 <body>
 <div class="rbar blue"><div class="in pad">
-  <a class="back hand" id="bk" href="/thinking">← Thinking in Systems</a>
+  <span class="bkw"><a class="back hand" id="bk" href="/thinking">← Thinking in Systems</a><a class="ra hand" id="ra" href="/thinking" hidden>read all</a></span>
   <script>(function(){{ var k='smirk_from',f='';
     try{{ var r=document.referrer?new URL(document.referrer):null;
       if(r&&r.origin===location.origin){{ var p=r.pathname.replace(/[/]+$/,'');
         if(p===''||p==='/index.html') sessionStorage.setItem(k,'home'); else if(p==='/thinking') sessionStorage.setItem(k,'thinking'); }}
       else sessionStorage.removeItem(k);
       f=sessionStorage.getItem(k)||''; }}catch(e){{}}
-    if(f==='home'){{ var a=document.getElementById('bk'); a.href='/#notes'; a.textContent='\u2190 back to Smirk'; }} }})();</script>
+    if(f==='home'){{ var a=document.getElementById('bk'); a.href='/#notes'; a.textContent='\u2190 back to Smirk'; document.getElementById('ra').hidden=false; }} }})();</script>
   <a class="brand" href="/" aria-label="Smirk home">{MARK}<span class="wm">smirk</span></a>
 </div><span class="rp" id="rp"></span></div>
 <main>
