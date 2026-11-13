@@ -29,12 +29,12 @@
           "note": "just text it."
         },
         {
-          "title": "Private gift stores",
+          "title": "The logistics loop",
           "status": "Live",
-          "problem": "Each client event needed its own private store where guests choose a gift and never see a price. Every one was built by hand, with the gift rules written into code.",
-          "built": "Tiered private collections inside the company’s existing online store, run by settings instead of code: which event, how many gifts per guest, the client’s branding.",
-          "outcome": "A new event store is a copy and two settings. It stopped being a development job.",
-          "note": "no prices. on purpose."
+          "problem": "Every order meant dozens of emails. Introductions, artwork proofs, approvals, shipping addresses, tracking numbers. Each one written by hand, and every status lived in someone’s inbox.",
+          "built": "One system that runs the communication around an order. It sends the right email at each step, collects proofs and approvals from the client, and handles the shipping: one button creates the shipping orders, pulls the tracking back in and tells everyone where things stand.",
+          "outcome": "Nobody writes a status email. The client and the team see the same status the moment it changes.",
+          "note": "one button."
         },
         {
           "title": "Onboarding to contract",
