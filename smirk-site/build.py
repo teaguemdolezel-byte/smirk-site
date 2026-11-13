@@ -178,12 +178,15 @@ main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
 .pband .big span{display:block;opacity:.55}
 .pband .fin{color:var(--peri);font-size:clamp(26px,2.6vw,38px);line-height:1;transform:rotate(-3deg);transform-origin:right bottom}
 @media (max-width:700px){.pband{flex-direction:column;align-items:flex-start}.pband .fin{align-self:flex-end}.pi .hn{margin-left:0;flex-basis:100%;transform-origin:left center;margin-top:4px}}
-.pi .pso{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px);margin-top:26px}
+.pi .pso{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0 0 -18px}
 .pi .pso .mono{display:block;margin-bottom:10px;color:var(--muted)}
 .pi .pso p{margin:0;font-size:16px;line-height:1.5;color:var(--body)}
+.pi .pso>div{padding:16px 18px 18px}
+.pi .pso>div:nth-child(2){background:rgba(18,18,17,.04)}
+.pi .pso .oc{background:rgba(53,83,224,.07)}
 .pi .pso .oc .mono{color:var(--cob)}
 .pi .pso .oc p{color:var(--ink);font-weight:500}
-@media (max-width:900px){.pi .pso{grid-template-columns:1fr;gap:20px}}
+@media (max-width:900px){.pi .pso{grid-template-columns:1fr;gap:8px}}
 @media (max-width:760px){.pi{grid-template-columns:70px 1fr;gap:16px;padding:28px 0 32px}.pi .n{font-size:40px}}
 @media (max-width:520px){.pi{grid-template-columns:1fr;gap:14px}}
 .filt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 26px;padding:0 0 18px}
