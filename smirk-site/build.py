@@ -234,8 +234,10 @@ def head(title, desc, path, noindex=False, extra=''):
 <link rel="canonical" href="{url}">
 {robots}
 <meta name="theme-color" content="#3553E0">
-<link rel="icon" href="{FAV}" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:site_name" content="Smirk">
 <meta property="og:title" content="{esc(title)}">
