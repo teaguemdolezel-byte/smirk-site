@@ -29,7 +29,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Smirk","url":"https://smirk.io/","logo":"https://smirk.io/icon-512.png","description":"Smirk is an independent studio in Austin, Texas. We design and build the software, systems and products that help businesses run better and grow.","foundingDate":"2023","address":{"@type":"PostalAddress","addressLocality":"Austin","addressRegion":"TX","addressCountry":"US"},"knowsAbout":["Custom software","Workflow automation","Systems design","Internal tools","Digital products"]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Caveat:wght@500;700&family=Inter+Tight:wght@600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Caveat:wght@500;700&family=Inter+Tight:wght@600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--cob:#3553E0;--cob2:#2B46C9;--cream:#F2F0EB;--paper:#FBFAF7;--ink:#121211;--body:#3A3935;--muted:#6B6A64;--peri:#8EA0FF}
 *{box-sizing:border-box}
@@ -713,7 +713,7 @@ br.mb{display:none}
 .fc-l.on .fsq path{stroke-dashoffset:0}
 :root{--sp:clamp(60px,7.2vw,104px)}
 main section#build{padding-bottom:var(--sp)}
-main section#method,main section#folio,main section#notes,main section#studio{padding-top:var(--sp);padding-bottom:var(--sp)}
+main section#method,main section#commonlane,main section#notes,main section#studio{padding-top:var(--sp);padding-bottom:var(--sp)}
 main section#premise-opts{padding-top:clamp(64px,7.6vw,112px)}
 .popt .oc-band{margin-top:clamp(48px,5.4vw,84px)}
 .build .bridge{padding-top:clamp(44px,5vw,76px)}
@@ -727,7 +727,8 @@ footer .ftop,.ftop{padding-top:clamp(64px,7vw,100px);padding-bottom:clamp(40px,4
 .art .ab h3{font-stretch:100%;font-weight:600;text-transform:none;font-size:24px;letter-spacing:-.02em}
 .art .next .x{font-stretch:100%;font-weight:500;text-transform:none;letter-spacing:-.035em;font-size:clamp(24px,2.8vw,32px);line-height:1.05}
 @media (max-width:700px){.art{padding:56px 20px 90px}.art .ab p{font-size:18px}}
-span.fc-name{cursor:default}
+span.fc-name{cursor:default;font-family:'Bricolage Grotesque',Archivo,sans-serif;font-weight:600;letter-spacing:-.025em;font-size:clamp(44px,6.5vw,108px);white-space:nowrap;margin-left:.12em}
+@media (max-width:700px){span.fc-name{margin-left:22px}}
 /* selection: blue on cream and ink, ink on cobalt */
 .hero::selection,.hero ::selection,.folio::selection,.folio ::selection,.oc-band::selection,.oc-band ::selection,.rbar::selection,.rbar ::selection,.bc:hover::selection,.bc:hover ::selection,.bc.hv::selection,.bc.hv ::selection{background:var(--ink);color:var(--cream)}
 h2.ob-lead{margin:0;text-transform:none;font-stretch:100%}
@@ -1003,7 +1004,7 @@ footer{background:var(--ink);color:var(--cream);position:relative;overflow:hidde
   <section data-nav="lt" class="build pad" id="build" aria-label="What we build">
     <div class="bridge"></div>
     <div class="bhd"><h2 class="hwt">What we build</h2></div>
-    <div class="bgrid four"><div class="bc iv"><span class="bl2" aria-hidden="true"><i class="f"></i><i></i><i></i><i></i></span><h3>Software.</h3><p>Client portals, operational dashboards, order management and internal tools, built around how a business actually works.</p></div><div class="bc iv"><span class="bl2" aria-hidden="true"><i class="f"></i><i class="f"></i><i></i><i></i></span><h3>Systems.</h3><p>Workflow automation and integrations that connect sales, operations and finance, so information moves without being entered twice.</p></div><div class="bc iv"><span class="bl2" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><h3>Products.</h3><p>Our own software, built from problems we kept running into. Folio is the first.</p></div><div class="bc iv"><span class="bl2" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></span><h3>Companies.</h3><p>The long game: products and partnerships that grow into businesses of their own.</p></div></div>
+    <div class="bgrid four"><div class="bc iv"><span class="bl2" aria-hidden="true"><i class="f"></i><i></i><i></i><i></i></span><h3>Software.</h3><p>Client portals, operational dashboards, order management and internal tools, built around how a business actually works.</p></div><div class="bc iv"><span class="bl2" aria-hidden="true"><i class="f"></i><i class="f"></i><i></i><i></i></span><h3>Systems.</h3><p>Workflow automation and integrations that connect sales, operations and finance, so information moves without being entered twice.</p></div><div class="bc iv"><span class="bl2" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i></i></span><h3>Products.</h3><p>Our own software, built from problems we kept running into. commonlane is the first.</p></div><div class="bc iv"><span class="bl2" aria-hidden="true"><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i></span><h3>Companies.</h3><p>The long game: products and partnerships that grow into businesses of their own.</p></div></div>
   </section>
 
   <section class="method pad hw" id="method" aria-label="How we think">
@@ -1016,12 +1017,12 @@ footer{background:var(--ink);color:var(--cream);position:relative;overflow:hidde
     <a class="pt-a" href="/proof" aria-label="See the proof"><span class="pt-n" aria-hidden="true">See the proof →</span><span class="pt-h hand" aria-hidden="true">see the proof →</span></a>
   </section>
 
-  <section class="folio pad fc" id="folio" aria-label="Folio">
+  <section class="folio pad fc" id="commonlane" aria-label="commonlane">
     <span class="hand fk">we build our own, too ↓</span>
     <h2 class="fc-h iv">Some problems are worth <span class="fd">building a company around.</span></h2>
     <div class="fc-grid">
       <div class="fc-l iv">
-        <span class="fc-name">Folio<svg class="fcirc" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M200 8 C80 2 10 26 10 62 C10 100 110 116 220 112 C330 108 396 86 390 52 C384 20 300 4 190 12"/></svg></span>
+        <span class="fc-name">commonlane<svg class="fcirc" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M200 8 C80 2 10 26 10 62 C10 100 110 116 220 112 C330 108 396 86 390 52 C384 20 300 4 190 12"/></svg></span>
         <p class="fc-tag">B2B ordering, without the back-and-forth.</p>
         <p class="fc-p">One link connects personalized quotes, partner catalogs, inventory, approvals, and payments. Buyers make changes, sellers see them instantly, and <span class="fsq">AI agents<svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M2 7 C14 1 24 11 36 6 S60 1 72 6 S96 11 108 6 S132 1 144 6 S168 11 180 6 S194 3 198 6"/></svg></span> help handle the work between each step.</p>
       </div>
