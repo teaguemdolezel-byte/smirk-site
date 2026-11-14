@@ -26,7 +26,7 @@ The line with three asterisks marks where the quote goes.
 
 Run:  python3 build.py
 """
-import glob, html, json, os, shutil, datetime
+import re, glob, html, json, os, shutil, datetime
 BASE = 'https://smirk.io'
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DIST = os.path.join(ROOT, 'dist')
@@ -196,6 +196,15 @@ main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
 @media (max-width:900px){.pi .pso{grid-template-columns:1fr;gap:0}}
 @media (max-width:760px){.pi{grid-template-columns:70px 1fr;gap:16px}.pi .n{font-size:40px}}
 @media (max-width:520px){.pi{grid-template-columns:1fr;gap:0}.pi .n{margin-top:28px}.pi>div{padding-top:16px}}
+.tw{padding-top:clamp(36px,5vw,72px);padding-bottom:clamp(56px,6vw,96px)}
+.tw input,.tw select,.tw textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1.5px solid rgba(18,18,17,.22);padding:10px 12px;border-radius:0;width:100%;min-width:0}
+.tw input:focus,.tw select:focus,.tw textarea:focus{outline:2px solid var(--cob);outline-offset:1px;border-color:var(--cob)}
+.tb{font:inherit;font-size:18px;font-weight:500;letter-spacing:-.02em;background:none;border:0;border-bottom:2px solid var(--ink);padding:0 0 3px;cursor:pointer;color:var(--ink)}
+.tb:hover{color:var(--cob);border-color:var(--cob)}
+.tb.q{font-size:16px;font-weight:400;border-bottom-width:1px;color:var(--body)}
+.tres .num small{font-size:.3em}
+.tix .nr2 .hn{font-size:26px;color:var(--cob);transform:rotate(-3deg);white-space:nowrap}
+@media (max-width:760px){.tix .nr2 .hn{display:none}}
 .tl{padding-top:clamp(36px,5vw,72px);padding-bottom:clamp(56px,6vw,96px)}
 .tq{display:grid;grid-template-columns:120px 1fr;gap:30px;padding:30px 0 34px;border-bottom:1px solid rgba(18,18,17,.15)}
 .tq:first-of-type{border-top:1.5px solid var(--ink)}
@@ -421,11 +430,11 @@ def tool_page(t):
         qs.append(f'<section class="tq" data-i="{i}"><span class="n" aria-hidden="true">{i+1:02d}</span><div><span class="ar mono">{esc(q["area"])}</span><h2>{esc(q["q"])}</h2><div class="op" role="group" aria-label="{esc(q["area"])}">{ops}</div></div></section>')
     data = json.dumps({'q': [{'area': q['area'], 'fix': q['fix'], 'note': q['note']} for q in t['questions']], 'bands': t['bands']}, ensure_ascii=False).replace('</', '<\\/')
     n = len(t['questions'])
-    return head(t['title'] + ' A free scorecard — Smirk', t['description'], '/tools/' + t['slug'], noindex=t.get('draft', False)) + f'''
+    return head(t['title'] + ' A free scorecard — Smirk', t['description'], '/tools/' + t['slug'], noindex=TOOLS_DRAFT) + f'''
 <body>
 <header class="abs"><div class="in pad">
   <a class="brand" href="/" aria-label="Smirk home">{MARK}<span class="wm">smirk</span></a>
-  <a class="back hand" href="/">← back to Smirk</a>
+  <a class="back hand" href="/tools">← all tools</a>
 </div></header>
 <section class="top pad blue">
   <span class="kick hand">{esc(t["kick"])}</span>
@@ -460,6 +469,68 @@ def tool_page(t):
   document.getElementById('tcopy').addEventListener('click',function(){{ var b=this; try{{ navigator.clipboard.writeText(last).then(function(){{ b.textContent='Copied'; setTimeout(function(){{b.textContent='Copy your result';}},1600); }}); }}catch(e){{}} }});
   document.getElementById('tagain').addEventListener('click',function(){{ ans=[]; qs.forEach(function(s){{ s.classList.remove('done'); [].slice.call(s.querySelectorAll('button')).forEach(function(x){{x.setAttribute('aria-pressed','false');}}); }}); count(); res.hidden=true; window.scrollTo({{top:0,behavior:'smooth'}}); }});
 }})();</script>
+</body>
+</html>
+'''
+
+def load_tools():
+    tools = []
+    d = os.path.join(ROOT, 'content', 'tools')
+    for f in sorted(os.listdir(d)):
+        if f.endswith('.json'):
+            t = json.load(open(os.path.join(d, f), encoding='utf-8'))
+            t.setdefault('order', 1); t.setdefault('aside', 'ten questions.'); t['html'] = tool_page(t); tools.append(t)
+    d = os.path.join(ROOT, 'src', 'tools')
+    for f in sorted(os.listdir(d)):
+        if f.endswith('.html'):
+            raw = open(os.path.join(d, f), encoding='utf-8').read()
+            m = re.match(r'<!--meta (\{.*?\}) -->\n', raw)
+            t = json.loads(m.group(1)); t['draft'] = TOOLS_DRAFT; t['html'] = fragment_tool_page(t, raw[m.end():]); tools.append(t)
+    for t in tools:
+        t['draft'] = TOOLS_DRAFT
+    return sorted(tools, key=lambda t: t['order'])
+
+TOOLS_DRAFT = True   # True = reachable by link, hidden from search and the sitemap
+
+def fragment_tool_page(t, body):
+    a, b = t['h1']
+    return head(t['title'] + ' — a free tool from Smirk', t['description'], '/tools/' + t['slug'], noindex=TOOLS_DRAFT) + f'''
+<body>
+<header class="abs"><div class="in pad">
+  <a class="brand" href="/" aria-label="Smirk home">{MARK}<span class="wm">smirk</span></a>
+  <a class="back hand" href="/tools">← all tools</a>
+</div></header>
+<section class="top pad blue">
+  <span class="kick hand">{esc(t["kick"])}</span>
+  <h1>{esc(a)} <span class="u">{esc(b)}<svg viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M6 16 C90 5 210 7 394 13 M48 31 C150 22 262 23 366 27"/></svg></span></h1>
+  <p class="sub">{esc(t["sub"])}</p>
+</section>
+''' + body + f'''
+{FOOT}
+</body>
+</html>
+'''
+
+def tools_index(tools):
+    rows = '\n      '.join(f'<a class="nr2" href="/tools/{t["slug"]}"><span class="n">{i+1:02d}</span><span><span class="t">{esc(t["title"])}</span><span class="e">{esc(t["blurb"])}</span></span><span class="hn hand">{esc(t["aside"])}</span></a>' for i, t in enumerate(tools))
+    return head('Free tools — Smirk', 'Free interactive tools for finding where a business runs on systems and where it runs on tape: a handoff mapper, a manual-work cost calculator, a spreadsheet autopsy and a scorecard.', '/tools', noindex=TOOLS_DRAFT) + f'''
+<body>
+<header class="abs"><div class="in pad">
+  <a class="brand" href="/" aria-label="Smirk home">{MARK}<span class="wm">smirk</span></a>
+  <a class="back hand" href="/">← back to Smirk</a>
+</div></header>
+<section class="top pad blue">
+  <span class="kick hand">free. no email. no catch.</span>
+  <h1><span class="u">Tools<svg viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M6 16 C90 5 210 7 394 13 M48 31 C150 22 262 23 366 27"/></svg></span></h1>
+  <p class="sub">Things we use at the start of every project, made usable by anyone. Each one runs in your browser and takes a few minutes.</p>
+</section>
+<main class="list pad tix">
+  <div class="nlist">
+      {rows}
+  </div>
+</main>
+{FOOT}
+{TOUCH_JS}
 </body>
 </html>
 '''
@@ -509,12 +580,13 @@ def main():
         open(os.path.join(DIST, 'thinking', n['slug'] + '.html'), 'w', encoding='utf-8').write(note_page(n, notes[(i + 1) % len(notes)]))
     open(os.path.join(DIST, '404.html'), 'w', encoding='utf-8').write(not_found_page())
     open(os.path.join(DIST, 'proof.html'), 'w', encoding='utf-8').write(proof_page())
-    tools = [json.load(open(os.path.join(ROOT, 'content', 'tools', f), encoding='utf-8')) for f in sorted(os.listdir(os.path.join(ROOT, 'content', 'tools'))) if f.endswith('.json')]
+    tools = load_tools()
     os.makedirs(os.path.join(DIST, 'tools'), exist_ok=True)
+    open(os.path.join(DIST, 'tools', 'index.html'), 'w', encoding='utf-8').write(tools_index(tools))
     for t in tools:
-        open(os.path.join(DIST, 'tools', t['slug'] + '.html'), 'w', encoding='utf-8').write(tool_page(t))
+        open(os.path.join(DIST, 'tools', t['slug'] + '.html'), 'w', encoding='utf-8').write(t['html'])
     today = datetime.date.today().isoformat()
-    urls = [('/', today), ('/proof', today), ('/work-together', today), ('/thinking', today)] + [('/tools/' + t['slug'], today) for t in tools if not t.get('draft')] + [(f'/thinking/{n["slug"]}', n['date'].isoformat()) for n in notes if not n['draft']]
+    urls = [('/', today), ('/proof', today), ('/work-together', today), ('/thinking', today)] + ([] if TOOLS_DRAFT else [('/tools', today)] + [('/tools/' + t['slug'], today) for t in tools]) + [(f'/thinking/{n["slug"]}', n['date'].isoformat()) for n in notes if not n['draft']]
     open(os.path.join(DIST, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{BASE}{u}</loc><lastmod>{d}</lastmod></url>\n' for u, d in urls) + '</urlset>\n')
     print(f'built {len(notes)} notes ({sum(n["draft"] for n in notes)} drafts hidden from search) -> dist/')

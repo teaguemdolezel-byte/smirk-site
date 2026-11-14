@@ -1,0 +1,100 @@
+<!--meta {"slug": "spreadsheet-autopsy", "title": "The spreadsheet autopsy", "h1": ["The spreadsheet", "autopsy"], "kick": "paste it in. nothing leaves your browser.", "sub": "Paste a few rows of the spreadsheet your business really runs on, headers included. It works out what each column is secretly doing and writes the list of things a replacement would have to do.", "description": "A free tool that reads a pasted spreadsheet in your browser, works out the job each column is doing, and writes the requirements for replacing it. Nothing is uploaded.", "aside": "it’s the spec. we just read it.", "order": 4, "blurb": "Paste your spreadsheet. It works out what each column is secretly doing."} -->
+<style>
+.sa h2{margin:0 0 14px;font-size:clamp(24px,2.4vw,34px);letter-spacing:-.03em;font-weight:600;line-height:1}
+.sa textarea{min-height:190px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.5;white-space:pre;overflow:auto;resize:vertical}
+.sa-a{display:flex;gap:14px 30px;flex-wrap:wrap;align-items:baseline;margin-top:14px}
+.sa-a .mono{color:var(--muted)}
+.sa-cols{margin-top:clamp(34px,4vw,56px)}
+.sa-t{border-top:1.5px solid var(--ink)}
+.sa-c{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.6fr) minmax(150px,220px);gap:10px 24px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(18,18,17,.15)}
+.sa-c b{font-weight:600;font-size:18px;letter-spacing:-.02em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sa-c .ex{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sa-j{margin-top:clamp(34px,4vw,56px);border-top:1.5px solid var(--cream)}
+.sa-j>div{display:grid;grid-template-columns:minmax(160px,250px) 1fr;gap:8px 30px;padding:22px 0;border-bottom:1px solid rgba(242,240,235,.3)}
+.sa-j h3{margin:0;font-weight:500;font-size:clamp(24px,2.6vw,38px);letter-spacing:-.035em;line-height:1}
+.sa-j .hand{display:block;color:#CDD5FF;font-size:24px;line-height:1;margin-top:10px;transform:rotate(-3deg);transform-origin:left}
+.sa-j p{margin:0;font-size:clamp(16px,1.35vw,19px);line-height:1.5;color:rgba(242,240,235,.92)}
+.sa-j .ch{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.sa-j .ch span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.06em;border:1px solid rgba(242,240,235,.5);padding:4px 8px}
+.sa-req{margin-top:clamp(34px,4vw,56px)}
+.sa-req .mono{opacity:.8}
+.sa-req ol{margin:16px 0 0;padding:0;list-style:none;counter-reset:r;max-width:46em}
+.sa-req li{counter-increment:r;position:relative;padding:12px 0 12px 54px;border-bottom:1px solid rgba(242,240,235,.3);font-size:clamp(17px,1.5vw,21px);line-height:1.4;font-weight:500}
+.sa-req li:before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;opacity:.7}
+@media (max-width:760px){.sa-c{grid-template-columns:1fr 1fr}.sa-c .ex{grid-column:1/3;order:3}.sa-j>div{grid-template-columns:1fr}}
+</style>
+<main class="tw pad sa">
+  <h2>Paste your spreadsheet</h2>
+  <textarea id="saIn" spellcheck="false" aria-label="Spreadsheet rows" placeholder="Select the header row and a few dozen rows in your spreadsheet, copy, and paste here."></textarea>
+  <div class="sa-a"><button type="button" class="tb" id="saEx">Use an example</button><label class="tb q" style="cursor:pointer">Or choose a .csv file<input type="file" id="saFile" accept=".csv,.tsv,.txt,text/csv" hidden></label><button type="button" class="tb q" id="saClr">Clear</button><span class="mono" id="saInfo">Read in your browser. Nothing is uploaded or saved.</span></div>
+  <div class="sa-cols" id="saColsW" hidden><h2>What each column looks like</h2><p style="margin:0 0 16px;max-width:40em;color:var(--body)">Our best guess. Change any that are wrong and the result updates.</p><div class="sa-t" id="saCols"></div></div>
+</main>
+<section class="tres pad" id="saRes" hidden>
+  <div class="sc"><div class="num" id="saNum"></div><div><h2 id="saTtl"></h2><span class="as hand" id="saAs"></span></div></div>
+  <div class="sa-j" id="saJobs"></div>
+  <div class="sa-req"><span class="mono">If you replaced it tomorrow, the new thing would have to</span><ol id="saReq"></ol></div>
+  <div class="end"><button type="button" id="saCopy">Copy the spec</button><a href="/thinking/the-spreadsheet-is-the-spec">Read: the spreadsheet is the spec</a><a href="/work-together">Want a second pair of eyes?</a></div>
+</section>
+<script>(function(){
+var $=function(i){return document.getElementById(i);};
+var TYPES={status:'A status or stage',person:'A person',date:'A date',money:'Money',flag:'A yes/no step',notes:'Free-text notes',contact:'Contact details',id:'An ID or reference',number:'A number',text:'A name or label',dead:'Mostly empty'};
+var EX="Client\tContact\tEmail\tStage\tOwner\tEvent date\tGuests\tQuote\tDeposit paid\tContract sent\tFollow up\tNotes\tOld ref\nNorthwind Foods\tAva Reyes\tava@northwind.example\tQuoted\tSam\t3/14/2027\t220\t$38,500\tNo\tNo\t11/20/2026\tWants the gold tier. Check with finance about net 30 before sending the contract.\t\nHarbor Logistics\tBen Ito\tben@harbor.example\tWon\tSam\t1/22/2027\t140\t$24,200\tYes\tYes\t\tDeposit came by ACH, not through the invoice. Remember to mark it.\t\nCopper & Pine\tMia Chen\tmia@copperpine.example\tLead\tDana\t\t\t\tNo\tNo\t11/18/2026\tSaid to come back in the new year once budgets are set.\t\nLakeshore Health\tOmar Diaz\tomar@lakeshore.example\tQuoted\tDana\t5/02/2027\t400\t$61,000\tNo\tYes\t11/25/2026\tLegal is reviewing. Two rounds of changes so far.\tLH-2024\nSummit Events\tZoe Park\tzoe@summit.example\tLost\tSam\t\t90\t$14,000\tNo\tNo\t\tWent with someone cheaper. Ask again next year.\t\nBright Dental Group\tLiam Ward\tliam@brightdental.example\tWon\tLee\t2/09/2027\t60\t$11,400\tYes\tYes\t\tShip boxes to the office, not the venue.\t\nOrchard Tech\tNoor Ali\tnoor@orchard.example\tLead\tDana\t\t\t\tNo\tNo\t11/19/2026\t\t\nRedwood Partners\tEli Stone\teli@redwood.example\tWon\tLee\t12/11/2026\t180\t$31,000\tYes\tYes\t\tSecond event for them. Same setup as last time.\tRP-2025";
+var cols=[], nrows=0;
+function parse(txt){ txt=txt.replace(/\r\n?/g,'\n').replace(/\n+$/,''); if(!txt.trim()) return [];
+  var d=(txt.split('\n')[0].match(/\t/g)||[]).length>=1?'\t':(txt.split('\n')[0].match(/;/g)||[]).length>(txt.split('\n')[0].match(/,/g)||[]).length?';':',';
+  var rows=[],row=[],cur='',q=false;
+  for(var i=0;i<txt.length;i++){ var c=txt[i];
+    if(q){ if(c==='"'){ if(txt[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else if(c==='"'&&cur==='') q=true; else if(c===d){ row.push(cur); cur=''; } else if(c==='\n'){ row.push(cur); rows.push(row); row=[]; cur=''; } else cur+=c; }
+  row.push(cur); rows.push(row); return rows.slice(0,501); }
+var RE={date:/^(\d{1,4}[\/\-.]\d{1,2}[\/\-.]\d{1,4}|\d{1,2}\s+[A-Za-z]{3,9}\.?\s+\d{2,4}|[A-Za-z]{3,9}\.?\s+\d{1,2}(st|nd|rd|th)?,?\s*\d{0,4})(\s+\d{1,2}:\d{2}.*)?$/, money:/^\(?-?\s*[$£€]\s?[\d,]+(\.\d+)?\)?$|^[\d,]+(\.\d{2})\s?(usd|eur|gbp)?$/i, num:/^-?[\d,]+(\.\d+)?%?$/, email:/^[^\s@]+@[^\s@]+\.[^\s@]+$/, phone:/^[+(]?\d[\d\s().\-]{6,}\d$/, url:/^(https?:\/\/|www\.)\S+$/i, flag:/^(y|n|yes|no|true|false|x|✓|✔|done|tbd|n\/a|sent|paid|-)$/i, name:/^[A-Z][a-z'’\-]+(\s[A-Z][a-z'’\-.]+){0,2}$/};
+function guess(h,vals,n){ var v=vals.filter(function(x){return x!=='';}), fill=v.length/Math.max(n,1), hl=h.toLowerCase();
+  if(!v.length||fill<.3) return 'dead';
+  var share=function(re){ return v.filter(function(x){return re.test(x);}).length/v.length; }, uniq={}; v.forEach(function(x){uniq[x.toLowerCase()]=1;}); var u=Object.keys(uniq).length, avg=v.reduce(function(a,x){return a+x.length;},0)/v.length;
+  if(share(RE.email)>.6||share(RE.phone)>.6||share(RE.url)>.6||/e-?mail|phone|mobile|\btel\b|website|linkedin/.test(hl)) return 'contact';
+  if(share(RE.date)>.6||(/date|deadline|\bdue\b|follow.?up|\bwhen\b|ship|start|end\b/.test(hl)&&share(RE.date)>.3)) return 'date';
+  if(share(RE.flag)>.8&&u<=4) return 'flag';
+  if(share(RE.money)>.6||(/price|cost|amount|total|rate|\bfee|revenue|invoice|quote|deposit|balance|budget|\$/.test(hl)&&share(RE.num)>.6)) return 'money';
+  if(/status|stage|state|phase|priority|\btype\b|category|tier/.test(hl)&&u<=12) return 'status';
+  if(/owner|assigned|\brep\b|\bby\b|\bwho\b|manager|lead\b|gifter|staff|crew|responsible|handler/.test(hl)&&share(RE.num)<.3) return 'person';
+  if(/\bid\b|\bref|\bno\.?$|number|sku|code|#/.test(hl)&&u/v.length>.8) return 'id';
+  if(share(RE.num)>.8) return 'number';
+  if(avg>38) return 'notes';
+  if(v.length>=5&&u<=Math.max(3,Math.min(8,v.length*.4))) return share(RE.name)>.7&&u>=2&&avg<16?'person':'status';
+  return 'text'; }
+function analyse(){ var rows=parse($('saIn').value); if(rows.length<2){ cols=[]; nrows=0; render(); return; }
+  var hd=rows[0], body=rows.slice(1).filter(function(r){return r.some(function(c){return c.trim()!=='';});}); nrows=body.length;
+  cols=hd.map(function(h,i){ var vals=body.map(function(r){return (r[i]||'').trim();}); h=(h||'').trim()||'Column '+(i+1); var uq=[]; vals.forEach(function(x){ if(x&&uq.indexOf(x)<0) uq.push(x); });
+    return {h:h,vals:vals,uq:uq,t:guess(h,vals,body.length)}; }).filter(function(c,i){ return hd[i].trim()!==''||c.vals.some(function(x){return x;}); });
+  render(); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+function list(a){ return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1]; }
+function render(){ var W=$('saColsW'), R=$('saRes'); if(!cols.length){ W.hidden=true; R.hidden=true; $('saInfo').textContent=$('saIn').value.trim()?'Need a header row and at least one row under it.':'Read in your browser. Nothing is uploaded or saved.'; return; }
+  $('saInfo').textContent=cols.length+' columns, '+nrows+' rows read. Nothing was uploaded.';
+  W.hidden=false; $('saCols').innerHTML=cols.map(function(c,i){ return '<div class="sa-c"><b title="'+esc(c.h)+'">'+esc(c.h)+'</b><span class="ex">'+esc(c.uq.slice(0,3).join(' · ')||'(empty)')+'</span><select data-i="'+i+'" aria-label="Type of '+esc(c.h)+'">'+Object.keys(TYPES).map(function(k){return '<option value="'+k+'"'+(k===c.t?' selected':'')+'>'+TYPES[k]+'</option>';}).join('')+'</select></div>'; }).join('');
+  var by={}; cols.forEach(function(c){ (by[c.t]=by[c.t]||[]).push(c); }); var names=function(k){ return (by[k]||[]).map(function(c){return c.h;}); };
+  var J=[], Q=[];
+  if(by.status){ by.status.forEach(function(c){ var st=c.uq.slice(0,7); J.push(['A pipeline','work moves through it.','“'+c.h+'” is where each row changes state'+(st.length?' ('+st.join(', ')+')':'')+'. Somebody has to open the sheet and change that cell for anything to move.',[c.h]]); Q.push('Move each record through '+(st.length?st.join(', '):'its stages')+', and show at a glance what is stuck in each one.'); }); }
+  if(by.person){ J.push(['An assignment board','who has what.',list(names('person').map(function(n){return '“'+n+'”';}))+' '+(by.person.length>1?'say':'says')+' whose job each row is. Nobody is told; they find out by looking.',names('person')]); Q.push('Give each record an owner, show every person their own list, and tell them when something lands on it.'); }
+  if(by.date){ J.push(['A calendar','someone has to remember to look.',list(names('date').map(function(n){return '“'+n+'”';}))+' only '+(by.date.length>1?'work':'works')+' if a person reads the date in time. A spreadsheet can hold a deadline. It can’t remind anyone.',names('date')]); Q.push('Remind the right person ahead of '+list(names('date'))+', without anyone opening anything.'); }
+  if(by.money){ J.push(['A ledger','the numbers that matter.',list(names('money').map(function(n){return '“'+n+'”';}))+' '+(by.money.length>1?'hold':'holds')+' money. If these are typed here and again in an invoice or accounting tool, they will disagree sooner or later.',names('money')]); Q.push('Hold '+list(names('money'))+' once, and pass '+(by.money.length>1?'them':'it')+' to quoting, invoicing and reporting without retyping.'); }
+  if(by.flag){ J.push(['A checklist','tick, tick, forget.',list(names('flag').map(function(n){return '“'+n+'”';}))+' '+(by.flag.length>1?'are steps':'is a step')+' someone ticks by hand after doing the real thing somewhere else. The tick and the truth can drift apart.',names('flag')]); Q.push('Track '+(by.flag.length>1?'these steps':'this step')+' for every record ('+list(names('flag'))+'), ideally marked done by the thing that actually did '+(by.flag.length>1?'them':'it')+'.'); }
+  if(by.notes){ J.push(['A memory','everything the tools had no field for.','“'+names('notes').join('”, “')+'” is where the context lives: exceptions, promises, warnings. It is usually the most valuable column and the one no software asked for.',names('notes')]); Q.push('Keep free-text notes on every record, in order, with who wrote them and when.'); }
+  if(by.contact){ J.push(['A contact book','a quiet little CRM.',list(names('contact').map(function(n){return '“'+n+'”';}))+' '+(by.contact.length>1?'mean':'means')+' this sheet is also where you look people up.',names('contact')]); Q.push('Store people and how to reach them, linked to the records they belong to.'); }
+  if(by.id){ J.push(['A database','other things point at this.',list(names('id').map(function(n){return '“'+n+'”';}))+' '+(by.id.length>1?'are keys':'is a key')+' that other sheets, emails or tools refer to. Break '+(by.id.length>1?'them':'it')+' and those links break too.',names('id')]); Q.push('Keep '+list(names('id'))+' stable and searchable, because other things refer to '+(by.id.length>1?'them':'it')+'.'); }
+  if(by.dead){ J.push(['A graveyard','you stopped doing something.',list(names('dead').map(function(n){return '“'+n+'”';}))+' '+(by.dead.length>1?'are':'is')+' mostly empty. Either the process changed or people gave up filling '+(by.dead.length>1?'them':'it')+' in. Worth asking which.',names('dead')]); Q.push('Decide whether '+list(names('dead'))+' still '+(by.dead.length>1?'matter':'matters')+' before carrying '+(by.dead.length>1?'them':'it')+' over.'); }
+  if(by.number){ Q.push('Record '+list(names('number'))+' and total them where that is useful.'); }
+  R.hidden=false; $('saNum').textContent=J.length<10?'0'+J.length:J.length;
+  $('saTtl').textContent=J.length===0?'It’s a list.':J.length===1?'This spreadsheet is doing one job.':'This spreadsheet is doing '+['','','two','three','four','five','six','seven','eight','nine'][J.length]+' jobs.';
+  $('saAs').textContent=J.length>=4?'that’s a lot for a grid of cells.':J.length>=2?'it’s the spec. you already wrote it.':J.length===1?'small, but real.':'nothing hidden in here.';
+  $('saJobs').innerHTML=J.map(function(j){ return '<div><div><h3>'+esc(j[0])+'</h3><span class="hand">'+esc(j[1])+'</span></div><div><p>'+esc(j[2])+'</p><div class="ch">'+j[3].map(function(n){return '<span>'+esc(n)+'</span>';}).join('')+'</div></div></div>'; }).join('');
+  $('saJobs').style.display=J.length?'':'none';
+  $('saReq').innerHTML=Q.map(function(q){return '<li>'+esc(q)+'</li>';}).join('')||'<li>Hold a simple list. A spreadsheet may be exactly the right tool for this one.</li>';
+  window.__saText='Spreadsheet autopsy\n'+$('saTtl').textContent+'\n\n'+J.map(function(j){return j[0]+' — '+j[2];}).join('\n')+'\n\nA replacement would have to:\n'+Q.map(function(q,i){return (i+1)+'. '+q;}).join('\n')+'\n\nMade with https://smirk.io/tools/spreadsheet-autopsy'; }
+var tm; $('saIn').addEventListener('input',function(){ clearTimeout(tm); tm=setTimeout(analyse,250); });
+$('saCols').addEventListener('change',function(e){ var s=e.target.closest('select'); if(!s) return; cols[+s.dataset.i].t=s.value; render(); });
+$('saEx').addEventListener('click',function(){ $('saIn').value=EX; analyse(); });
+$('saClr').addEventListener('click',function(){ $('saIn').value=''; analyse(); });
+$('saFile').addEventListener('change',function(){ var f=this.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ $('saIn').value=String(r.result).slice(0,400000); analyse(); }; r.readAsText(f); this.value=''; });
+$('saCopy').addEventListener('click',function(){ var b=this; try{ navigator.clipboard.writeText(window.__saText).then(function(){ b.textContent='Copied'; setTimeout(function(){b.textContent='Copy the spec';},1600); }); }catch(e){} });
+})();</script>
