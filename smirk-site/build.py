@@ -196,6 +196,40 @@ main.list{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(64px,7vw,110px)}
 @media (max-width:900px){.pi .pso{grid-template-columns:1fr;gap:0}}
 @media (max-width:760px){.pi{grid-template-columns:70px 1fr;gap:16px}.pi .n{font-size:40px}}
 @media (max-width:520px){.pi{grid-template-columns:1fr;gap:0}.pi .n{margin-top:28px}.pi>div{padding-top:16px}}
+.tl{padding-top:clamp(36px,5vw,72px);padding-bottom:clamp(56px,6vw,96px)}
+.tq{display:grid;grid-template-columns:120px 1fr;gap:30px;padding:30px 0 34px;border-bottom:1px solid rgba(18,18,17,.15)}
+.tq:first-of-type{border-top:1.5px solid var(--ink)}
+.tq .n{font-size:64px;line-height:.8;font-stretch:125%;font-weight:800;color:transparent;-webkit-text-stroke:1.5px var(--ink);transition:color .4s,-webkit-text-stroke-color .4s;padding-top:22px}
+.tq.done .n{color:var(--cob);-webkit-text-stroke-color:var(--cob)}
+.tq .ar{color:var(--muted)}
+.tq h2{margin:8px 0 0;font-size:clamp(24px,2.6vw,36px);line-height:1.05;letter-spacing:-.03em;font-weight:600;max-width:24em}
+.tq .op{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.tq .op button{font:inherit;font-size:16px;line-height:1.3;text-align:left;color:var(--ink);background:none;border:1.5px solid rgba(18,18,17,.25);padding:11px 16px 12px;cursor:pointer;transition:background-color .25s,color .25s,border-color .25s}
+.tq .op button:hover{border-color:var(--ink)}
+.tq .op button[aria-pressed="true"]{background:var(--cob);border-color:var(--cob);color:var(--cream)}
+.tq .op button:focus-visible{outline:2px solid var(--cob);outline-offset:3px}
+.tgo{display:flex;align-items:baseline;gap:24px;flex-wrap:wrap;margin-top:34px}
+.tgo .cnt{color:var(--muted)}
+.tgo button{font:inherit;font-size:clamp(20px,1.9vw,26px);font-weight:500;letter-spacing:-.02em;background:none;border:0;border-bottom:2px solid var(--ink);padding:0 0 4px;cursor:pointer;color:var(--ink)}
+.tgo button[disabled]{opacity:.35;cursor:default}
+.tgo button:not([disabled]):hover{color:var(--cob);border-color:var(--cob)}
+.tres{background:var(--cob);color:var(--cream);padding-top:clamp(56px,7vw,110px);padding-bottom:clamp(56px,7vw,100px);background-image:linear-gradient(rgba(242,240,235,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,235,.07) 1px,transparent 1px);background-size:32px 32px}
+.tres[hidden]{display:none}
+.tres .sc{display:flex;align-items:flex-end;gap:clamp(20px,3vw,48px);flex-wrap:wrap}
+.tres .num{font-size:clamp(90px,15vw,230px);line-height:.74;font-stretch:125%;font-weight:800;color:transparent;-webkit-text-stroke:2px var(--cream)}
+.tres .num small{font-size:.36em;-webkit-text-stroke-width:1.5px;margin-left:.1em}
+.tres h2{margin:0;font-weight:500;font-size:clamp(38px,6vw,96px);line-height:.92;letter-spacing:-.045em}
+.tres .as{display:block;color:#CDD5FF;font-size:clamp(26px,2.6vw,38px);line-height:1;transform:rotate(-3deg);transform-origin:left bottom;margin-top:16px}
+.tres .tx{max-width:38em;margin:clamp(28px,3.4vw,44px) 0 0;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:rgba(242,240,235,.92)}
+.tres .fx{margin-top:clamp(34px,4vw,56px);border-top:1.5px solid var(--cream)}
+.tres .fx div{display:grid;grid-template-columns:minmax(150px,220px) 1fr auto;gap:10px 30px;align-items:baseline;padding:20px 0;border-bottom:1px solid rgba(242,240,235,.3)}
+.tres .fx .mono{opacity:.8}
+.tres .fx p{margin:0;font-size:clamp(17px,1.5vw,21px);line-height:1.4;font-weight:500}
+.tres .fx a{color:#CDD5FF;font-size:24px;white-space:nowrap}
+.tres .end{display:flex;gap:14px 40px;flex-wrap:wrap;align-items:baseline;margin-top:clamp(30px,4vw,48px)}
+.tres .end a,.tres .end button{font:inherit;color:var(--cream);background:none;border:0;border-bottom:1.5px solid rgba(242,240,235,.6);padding:0 0 3px;cursor:pointer;font-size:17px}
+.tres .end a:hover,.tres .end button:hover{border-color:var(--cream)}
+@media (max-width:760px){.tq{grid-template-columns:1fr;gap:6px;padding:26px 0 30px}.tq .n{font-size:40px;padding-top:0}.tq .op{flex-direction:column}.tres .fx div{grid-template-columns:1fr}}
 .filt{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 26px;padding:0 0 18px}
 .filt .lb{color:var(--muted)}
 .filt button{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;background:none;border:0;padding:6px 0;color:var(--ink);opacity:.55;cursor:pointer;background-image:linear-gradient(var(--cob),var(--cob));background-repeat:no-repeat;background-position:0 100%;background-size:0 1.5px;transition:opacity .3s,color .3s,background-size .4s cubic-bezier(.16,1,.3,1)}
@@ -380,6 +414,56 @@ def proof_page():
 </html>
 '''
 
+def tool_page(t):
+    qs = []
+    for i, q in enumerate(t['questions']):
+        ops = ''.join(f'<button type="button" data-v="{v}" aria-pressed="false">{esc(a)}</button>' for v, a in enumerate(q['a']))
+        qs.append(f'<section class="tq" data-i="{i}"><span class="n" aria-hidden="true">{i+1:02d}</span><div><span class="ar mono">{esc(q["area"])}</span><h2>{esc(q["q"])}</h2><div class="op" role="group" aria-label="{esc(q["area"])}">{ops}</div></div></section>')
+    data = json.dumps({'q': [{'area': q['area'], 'fix': q['fix'], 'note': q['note']} for q in t['questions']], 'bands': t['bands']}, ensure_ascii=False).replace('</', '<\\/')
+    n = len(t['questions'])
+    return head(t['title'] + ' A free scorecard — Smirk', t['description'], '/tools/' + t['slug'], noindex=t.get('draft', False)) + f'''
+<body>
+<header class="abs"><div class="in pad">
+  <a class="brand" href="/" aria-label="Smirk home">{MARK}<span class="wm">smirk</span></a>
+  <a class="back hand" href="/">← back to Smirk</a>
+</div></header>
+<section class="top pad blue">
+  <span class="kick hand">{esc(t["kick"])}</span>
+  <h1>Tape or <span class="u">system?<svg viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M6 16 C90 5 210 7 394 13 M48 31 C150 22 262 23 366 27"/></svg></span></h1>
+  <p class="sub">{esc(t["sub"])}</p>
+</section>
+<main class="tl pad">
+  {chr(10).join(qs)}
+  <div class="tgo"><button type="button" id="tgo" disabled>See your score →</button><span class="cnt mono" id="tcnt">0 of {n} answered</span></div>
+</main>
+<section class="tres pad" id="tres" hidden aria-live="polite">
+  <div class="sc"><div class="num" id="tnum"></div><div><h2 id="tttl"></h2><span class="as hand" id="tas"></span></div></div>
+  <p class="tx" id="ttx"></p>
+  <div class="fx" id="tfx"></div>
+  <div class="end"><button type="button" id="tcopy">Copy your result</button><button type="button" id="tagain">Start over</button><a href="/thinking">Read Thinking in Systems</a><a href="/work-together">Want a second pair of eyes?</a></div>
+</section>
+{FOOT}
+<script>(function(){{ var D={data}, N=D.q.length, ans=[], qs=[].slice.call(document.querySelectorAll('.tq')), go=document.getElementById('tgo'), cnt=document.getElementById('tcnt'), res=document.getElementById('tres');
+  function count(){{ var c=ans.filter(function(v){{return v!==undefined;}}).length; cnt.textContent=c+' of '+N+' answered'; go.disabled=c<N; }}
+  qs.forEach(function(s){{ var i=+s.dataset.i, bs=[].slice.call(s.querySelectorAll('button'));
+    bs.forEach(function(b){{ b.addEventListener('click',function(){{ ans[i]=+b.dataset.v; bs.forEach(function(x){{x.setAttribute('aria-pressed',String(x===b));}}); s.classList.add('done'); count();
+      var nx=qs[i+1]; if(nx && ans[i+1]===undefined && matchMedia('(max-width:760px)').matches) nx.scrollIntoView({{behavior:'smooth',block:'center'}}); }}); }}); }});
+  var last='';
+  go.addEventListener('click',function(){{ var total=ans.reduce(function(a,b){{return a+b;}},0), band=D.bands.filter(function(b){{return total<=b.max;}})[0];
+    var weak=ans.map(function(v,i){{return {{v:v,i:i}};}}).filter(function(x){{return x.v<2;}}).sort(function(a,b){{return a.v-b.v||a.i-b.i;}}).slice(0,3);
+    document.getElementById('tnum').innerHTML=total+'<small>/'+(N*2)+'</small>'; document.getElementById('tttl').textContent=band.title; document.getElementById('tas').textContent=band.aside; document.getElementById('ttx').textContent=band.text;
+    var fx=document.getElementById('tfx'); fx.innerHTML=''; weak.forEach(function(x){{ var q=D.q[x.i], d=document.createElement('div');
+      d.innerHTML='<span class="mono"></span><p></p><a class="hand" href="/thinking/'+q.note+'">the note →</a>'; d.children[0].textContent=q.area; d.children[1].textContent=q.fix; fx.appendChild(d); }});
+    fx.style.display=weak.length?'':'none';
+    last='Tape or system? I scored '+total+'/'+(N*2)+': '+band.title+(weak.length?' Weakest: '+weak.map(function(x){{return D.q[x.i].area;}}).join(', ')+'.':'')+' https://smirk.io/tools/tape-or-system';
+    res.hidden=false; res.scrollIntoView({{behavior:'smooth',block:'start'}}); }});
+  document.getElementById('tcopy').addEventListener('click',function(){{ var b=this; try{{ navigator.clipboard.writeText(last).then(function(){{ b.textContent='Copied'; setTimeout(function(){{b.textContent='Copy your result';}},1600); }}); }}catch(e){{}} }});
+  document.getElementById('tagain').addEventListener('click',function(){{ ans=[]; qs.forEach(function(s){{ s.classList.remove('done'); [].slice.call(s.querySelectorAll('button')).forEach(function(x){{x.setAttribute('aria-pressed','false');}}); }}); count(); res.hidden=true; window.scrollTo({{top:0,behavior:'smooth'}}); }});
+}})();</script>
+</body>
+</html>
+'''
+
 def not_found_page():
     css = """
 .nf{min-height:100svh;display:flex;flex-direction:column;background:var(--cob);color:var(--cream);background-image:radial-gradient(70% 60% at 76% 20%,rgba(142,160,255,.36),rgba(142,160,255,0)),linear-gradient(rgba(242,240,235,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(242,240,235,.07) 1px,transparent 1px);background-size:auto,32px 32px,32px 32px}
@@ -425,8 +509,12 @@ def main():
         open(os.path.join(DIST, 'thinking', n['slug'] + '.html'), 'w', encoding='utf-8').write(note_page(n, notes[(i + 1) % len(notes)]))
     open(os.path.join(DIST, '404.html'), 'w', encoding='utf-8').write(not_found_page())
     open(os.path.join(DIST, 'proof.html'), 'w', encoding='utf-8').write(proof_page())
+    tools = [json.load(open(os.path.join(ROOT, 'content', 'tools', f), encoding='utf-8')) for f in sorted(os.listdir(os.path.join(ROOT, 'content', 'tools'))) if f.endswith('.json')]
+    os.makedirs(os.path.join(DIST, 'tools'), exist_ok=True)
+    for t in tools:
+        open(os.path.join(DIST, 'tools', t['slug'] + '.html'), 'w', encoding='utf-8').write(tool_page(t))
     today = datetime.date.today().isoformat()
-    urls = [('/', today), ('/proof', today), ('/work-together', today), ('/thinking', today)] + [(f'/thinking/{n["slug"]}', n['date'].isoformat()) for n in notes if not n['draft']]
+    urls = [('/', today), ('/proof', today), ('/work-together', today), ('/thinking', today)] + [('/tools/' + t['slug'], today) for t in tools if not t.get('draft')] + [(f'/thinking/{n["slug"]}', n['date'].isoformat()) for n in notes if not n['draft']]
     open(os.path.join(DIST, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         + ''.join(f'  <url><loc>{BASE}{u}</loc><lastmod>{d}</lastmod></url>\n' for u, d in urls) + '</urlset>\n')
     print(f'built {len(notes)} notes ({sum(n["draft"] for n in notes)} drafts hidden from search) -> dist/')

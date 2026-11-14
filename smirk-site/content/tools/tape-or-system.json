@@ -1,0 +1,140 @@
+{
+  "slug": "tape-or-system",
+  "title": "Tape or system?",
+  "kick": "ten questions. two minutes.",
+  "sub": "Every business is held together by something. This tells you how much of yours is a system and how much is tape, and which three strips to replace first.",
+  "description": "A free ten-question scorecard: how much of your business runs on systems and how much on tape, memory and one person who knows everything.",
+  "questions": [
+    {
+      "area": "The key person",
+      "q": "Your most important person takes two weeks off tomorrow. What happens?",
+      "a": [
+        "Things stop.",
+        "We limp along and text them.",
+        "Not much. It’s written down or built in."
+      ],
+      "fix": "Write down what only they know, starting with the thing you’d call them about first.",
+      "note": "tape"
+    },
+    {
+      "area": "Source of truth",
+      "q": "Where does the real status of a customer or order live?",
+      "a": [
+        "In someone’s head or inbox.",
+        "In a spreadsheet, mostly up to date.",
+        "In one place everyone uses."
+      ],
+      "fix": "Pick one place where status lives and stop answering status questions anywhere else.",
+      "note": "the-spreadsheet-is-the-spec"
+    },
+    {
+      "area": "Handoffs",
+      "q": "Work moves from one person to the next. How does the next person find out?",
+      "a": [
+        "Someone tells them.",
+        "A message in a group chat.",
+        "It shows up in their queue on its own."
+      ],
+      "fix": "Map each handoff from first contact to paid. The gaps between people are where work gets lost.",
+      "note": "tape"
+    },
+    {
+      "area": "Retyping",
+      "q": "How many times is the same detail typed between first contact and getting paid?",
+      "a": [
+        "Three or more.",
+        "Twice.",
+        "Once."
+      ],
+      "fix": "Find the detail that gets typed most and make it flow from the first place it’s entered.",
+      "note": "tape"
+    },
+    {
+      "area": "Follow-up",
+      "q": "A lead goes quiet. What makes someone follow up?",
+      "a": [
+        "Someone remembers.",
+        "A reminder somebody set by hand.",
+        "It surfaces by itself when it’s due."
+      ],
+      "fix": "Keep one list of every open conversation, who owes whom, and when to come back to it.",
+      "note": "agents-draft"
+    },
+    {
+      "area": "The spreadsheet",
+      "q": "Your most important spreadsheet:",
+      "a": [
+        "Only one person dares edit it.",
+        "A few of us understand it.",
+        "We don’t run on one."
+      ],
+      "fix": "Read it column by column with whoever built it. Each column is something your real tools couldn’t do.",
+      "note": "the-spreadsheet-is-the-spec"
+    },
+    {
+      "area": "Numbers",
+      "q": "To answer “how did last month go?”, you…",
+      "a": [
+        "Ask around and estimate.",
+        "Spend an hour pulling it together.",
+        "Open one page."
+      ],
+      "fix": "Choose the five numbers you actually steer by and put them on one page that updates itself.",
+      "note": "ideas-vs-systems"
+    },
+    {
+      "area": "Pricing and rules",
+      "q": "Where do your pricing rules and exceptions live?",
+      "a": [
+        "In the founder’s head.",
+        "In old emails and quotes.",
+        "Written down or built into the quote."
+      ],
+      "fix": "Write the rules down as rules, exceptions included. If it can’t be written, it can’t be handed off.",
+      "note": "tools-are-not-moats"
+    },
+    {
+      "area": "Problems",
+      "q": "Something goes wrong with an order. How do you find out?",
+      "a": [
+        "The customer tells us.",
+        "Someone notices eventually.",
+        "We know before the customer does."
+      ],
+      "fix": "For your most common failure, decide what should alert you and who it should alert.",
+      "note": "agents-draft"
+    },
+    {
+      "area": "New people",
+      "q": "A new hire starts Monday. How do they learn how things work?",
+      "a": [
+        "They shadow someone for weeks.",
+        "A few documents and a lot of questions.",
+        "They follow the system. It shows the steps."
+      ],
+      "fix": "Have the newest person write down every question they had to ask. That list is your missing system.",
+      "note": "sell-the-job"
+    }
+  ],
+  "bands": [
+    {
+      "max": 7,
+      "title": "Held together with tape.",
+      "aside": "it works. until it doesn’t.",
+      "text": "Your business runs on people remembering things. That got you here, and it’s more common than anyone admits. It also means growth adds risk faster than it adds revenue. Start with the three strips below."
+    },
+    {
+      "max": 14,
+      "title": "Half tape, half system.",
+      "aside": "the tape is doing more than you think.",
+      "text": "Some of this is built and some of it is held in place by good people. The built parts are probably the ones customers see. The tape is usually behind them. The three below are where it’s thinnest."
+    },
+    {
+      "max": 20,
+      "title": "Mostly system.",
+      "aside": "nice.",
+      "text": "Most of how you work would survive a bad week or a new hire. What’s left is worth fixing mainly because it’s now the slowest part. Here’s where to look."
+    }
+  ],
+  "draft": true
+}
