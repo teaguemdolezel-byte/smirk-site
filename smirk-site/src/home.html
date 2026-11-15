@@ -727,6 +727,10 @@ footer .ftop,.ftop{padding-top:clamp(64px,7vw,100px);padding-bottom:clamp(40px,4
 .art .ab h3{font-stretch:100%;font-weight:600;text-transform:none;font-size:24px;letter-spacing:-.02em}
 .art .next .x{font-stretch:100%;font-weight:500;text-transform:none;letter-spacing:-.035em;font-size:clamp(24px,2.8vw,32px);line-height:1.05}
 @media (max-width:700px){.art{padding:56px 20px 90px}.art .ab p{font-size:18px}}
+.fc-btn{display:inline-flex;align-items:center;gap:10px;margin-top:30px;padding:14px 24px;border:1.5px solid var(--cream);border-radius:999px;color:var(--cream);font-size:16px;font-weight:500;letter-spacing:-.01em;text-decoration:none;transition:background .25s,color .25s}
+.fc-btn span{transition:transform .25s}
+.fc-btn:hover,.fc-btn:focus-visible{background:var(--cream);color:var(--cob)}
+.fc-btn:hover span{transform:translate(2px,-2px)}
 span.fc-name{cursor:default;font-family:'Bricolage Grotesque',Archivo,sans-serif;font-weight:600;letter-spacing:-.025em;font-size:clamp(44px,6.5vw,108px);white-space:nowrap;margin-left:.12em}
 @media (max-width:700px){span.fc-name{margin-left:22px}}
 /* selection: blue on cream and ink, ink on cobalt */
@@ -1025,6 +1029,7 @@ footer{background:var(--ink);color:var(--cream);position:relative;overflow:hidde
         <span class="fc-name">commonlane<svg class="fcirc" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M200 8 C80 2 10 26 10 62 C10 100 110 116 220 112 C330 108 396 86 390 52 C384 20 300 4 190 12"/></svg></span>
         <p class="fc-tag">Turn the back-and-forth into one simple buying process.</p>
         <p class="fc-p">Connect quotes, approvals, contracts and payments in one shared process for your team and your customers. See what needs attention, let <span class="fsq">AI agents<svg viewBox="0 0 200 12" preserveAspectRatio="none" aria-hidden="true"><path vector-effect="non-scaling-stroke" d="M2 7 C14 1 24 11 36 6 S60 1 72 6 S96 11 108 6 S132 1 144 6 S168 11 180 6 S194 3 198 6"/></svg></span> help handle the work between each step, and give customers their own catalog and pricing to order again.</p>
+        <a class="fc-btn hvx" href="https://commonlane.io" target="_blank" rel="noopener">commonlane.io <span aria-hidden="true">↗</span></a>
       </div>
       <dl class="fc-r iv">
         <div><dt>For</dt><dd>Businesses selling B2B</dd></div>
